@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <!--begin::Head-->
@@ -63,12 +64,12 @@
 <body class="login-page bg-body-secondary">
   <div class="login-box">
     <div class="login-logo">
-      <a href="../index2.html"><b>Admin</b>LTE</a>
+      <a href="./login.php" class="fw-bold text-uppercase"><b>Servi</b>Plus</a>
     </div>
     <!-- /.login-logo -->
     <div class="card">
       <div class="card-body login-card-body">
-        <p class="login-box-msg">Sign in to start your session</p>
+        <p class="login-box-msg">Ingrese sus datos para iniciar sesion</p>
 
         <form action="../controllers/login.php" method="post" class="">
           <div class="mb-3 input-group">
@@ -85,7 +86,7 @@
               <label for="">Password</label>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary w-100 mt-3 fs-5 fw-bold">Ingresar <i class="fa-solid fa-right-to-bracket"></i></button>
+          <button type="submit" class="btn btn-primary w-100 mt-3 fs-5">Ingresar <i class="fa-solid fa-right-to-bracket"></i></button>
         </form>
       </div>
       <!-- /.login-card-body -->

@@ -37,12 +37,12 @@ class Usuarios
     }
 
     // Cargo
-    public function setCargo($cargo)
+    public function setRol($cargo)
     {
         $this->cargo = $cargo;
     }
 
-    public function getCargo()
+    public function getRol()
     {
         return $this->cargo;
     }

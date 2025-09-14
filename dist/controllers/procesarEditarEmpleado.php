@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         && isset($_POST["telefono"]) && !empty($_POST["telefono"])
         && isset($_POST["correoElectronico"]) && !empty($_POST["correoElectronico"])
     ) {
-        $idImg = intval($_POST["id"]);
+        $id = intval($_POST["id"]);
 
         $nombre = filter_var(trim($_POST["nombre"]), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $numDocumento = filter_var(trim($_POST["numDocumento"]), FILTER_SANITIZE_NUMBER_INT);
@@ -30,16 +30,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $oldPassword = $_POST["oldPassword"];
 
 
-        $validacionNum = $mysql->efectuarConsulta("SELECT * FROM empleados WHERE numDocumento = $numDocumento AND IDempleado != $idImg");
-        $validacionCorreo = $mysql->efectuarConsulta("SELECT * FROM empleados WHERE correoElectronico = '$correoElectronico' AND IDempleado != $idImg");
-        if (mysqli_num_rows($validacionNum) > 0 || mysqli_num_rows($validacionCorreo)) {
-            session_start();
-            $_SESSION["mensaje"] = "Numero de documento o E-mail ya existente en el sistema";
-            $_SESSION["pagina"] = "editarEmpleado";
-        } else {
+        $validacionNum = $mysql->efectuarConsulta("SELECT * FROM empleados WHERE numDocumento = $numDocumento AND IDempleado != $id");
+        $validacionCorreo = $mysql->efectuarConsulta("SELECT * FROM empleados WHERE correoElectronico = '$correoElectronico' AND IDempleado != $id");
 
+        if (mysqli_num_rows($validacionNum) > 0) {
+            echo json_encode([
+                "success" => false,
+                "message" => "No de identificacion REPETIDO"
+            ]);
+            exit();
+        }
 
-            $res = $mysql->efectuarConsulta("SELECT * FROM empleados WHERE IDempleado = $idImg");
+        if (mysqli_num_rows($validacionCorreo) > 0) {
+            echo json_encode([
+                "success" => false,
+                "message" => "Correo electronico REPETIDO"
+            ]);
+            exit();
+        }
+
+            $res = $mysql->efectuarConsulta("SELECT * FROM empleados WHERE IDempleado = $id");
             $fila = $res->fetch_assoc();
             $passwordBD = $fila['password'];
             $rutaAnterior = $fila['imagen'];
@@ -51,17 +61,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $permitidos = ['image/jpeg' => '.jpg', 'image/png' => '.png'];
                 $tipo = mime_content_type($_FILES['foto']['tmp_name']);
                 if (!array_key_exists($tipo, $permitidos)) {
-                    session_start();
-                    $_SESSION["mensaje"] = "Solo se permiten formatos .jpg y .png";
-                    $_SESSION["pagina"] = "index";
-                    $_SESSION["id"] = $idImg;
-                    header('Location: ../views/error404.php');
-                    exit();
-                }
+                echo json_encode([
+                    "success" => false,
+                    "message" => "Solo se permiten formatos JPG o PNG"
+                ]);
+                exit();
+                }else{
                 $ext = ($tipo === 'image/png') ? '.png' : '.jpg';
                 $nombreUnico = 'imagen_' . date("Ymd_Hisv") . $ext;
                 $ruta = 'assets/img/' . $nombreUnico;
                 $rutaAbsoluta = __DIR__ . '/../' . $ruta;
+                }
+                
 
                 if (move_uploaded_file($_FILES['foto']['tmp_name'], $rutaAbsoluta)) {
                     $anteriorAbsoluta = __DIR__ . '/../' . $rutaAnterior;
@@ -73,16 +84,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $ruta = $rutaAnterior;
             }
 
-            if (isset($_POST["oldPassword"], $_POST["oldPassword"]) && !empty($_POST["newPassword"]) && !empty($_POST["newPassword"])) {
+            if (isset($_POST["oldPassword"], $_POST["newPassword"]) && !empty($_POST["oldPassword"]) && !empty($_POST["newPassword"])) {
                 if (password_verify($oldPassword, $passwordBD)) {
                     $newPassword = password_hash($_POST["newPassword"], PASSWORD_BCRYPT);
                 } else {
-                    session_start();
-                    $_SESSION["mensaje"] = "Las contraseñas no coinciden";
-                    $_SESSION["pagina"] = "index";
-                    $_SESSION["id"] = $idImg;
-                    header('Location: ../views/error404.php');
-                    exit();
+                echo json_encode([
+                    "success" => false,
+                    "message" => "Contraseña INCORRECTA"
+                ]);
+                exit();
                 }
             } else {
                 $newPassword = $passwordBD;
@@ -102,16 +112,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         imagen = '$ruta',
         rol_id = $rol,
         password = '$newPassword'
-        WHERE IDempleado = $idImg");
+        WHERE IDempleado = $id");
 
             $mysql->desconectar();
-            header('Location: ../index.php');
-            exit();
-        }
+        echo json_encode([
+            "success" => true,
+            "message" => "Empleado editado exitosamente",
+        ]);
+
+        
+     
+        
     } else {
-        session_start();
-        $_SESSION["mensaje"] = "Faltan campos por rellenar";
-        $_SESSION["pagina"] = "index";
-        header('Location: ../views/error404.php');
+        echo json_encode([
+            "success" => false,
+            "message" => "Todos los campos son obligatorios"
+        ]);
+        exit();
     }
 }

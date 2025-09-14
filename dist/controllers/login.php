@@ -23,7 +23,7 @@
                     $usuario = new usuarios();
                     $usuario->setNombre($usuarios["nombre"]);
                     $usuario->setId($usuarios['IDempleado']);
-                    $usuario->setCargo($usuarios['rol_id']);
+                    $usuario->setRol($usuarios['rol_id']);
                     $usuario->setNombreRol($usuarios['nombre_rol']);
                     
 
@@ -33,38 +33,23 @@
 
                     header("Location: ../index.php");
                 }else{
-                header("Location: ../views/login.php");
+                session_start();
+                $_SESSION["mensaje"] = "Contraseña incorrecta";
+                $_SESSION["pagina"] = "login";
+                header('Location: ../views/error404.php');
                 }
             } else {
-
-                echo '
-            <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ERRROR!</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-  </head>
-  <body>
-  <div class="row">
-  <div class="col-md-12 d-flex justify-content-center align-items-center min-vh-100 text-light">
-  <div class = "bg-danger rounded shadow  p-5">
-<h1 class="fw-bold text-center display-5 "> Error 404 </h1>
-  <h2 class="fw-bold text-center">El usuario se encuentra INACTIVO </h2>
-  </div>
-    
-  </div>
-  </div>
-   
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-  </body>
-</html>
-            ';
-                header("refresh:2; url=../views/login.php");
+                session_start();
+                $_SESSION["mensaje"] = "Usuario Inactivo";
+            $_SESSION["pagina"] = "login";
+                header('Location: ../views/error404.php');
+             
             }
         } else {
-            header("Location: ../views/login.php");
+        session_start();
+        $_SESSION["mensaje"] = "Usuario no encontrado";
+        $_SESSION["pagina"] = "login";
+        header('Location: ../views/error404.php');
         }
     } else {
         header("Location: ../views/login.php");

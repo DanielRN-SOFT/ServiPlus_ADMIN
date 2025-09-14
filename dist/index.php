@@ -8,10 +8,11 @@ if ($_SESSION['acceso'] == NULL || $_SESSION["acceso"] == false) {
   exit();
 }
 
+
 $usuarios = new usuarios();
 $usuarios = $_SESSION['usuario'];
 $nombre = $usuarios->getNombre();
-$rol = $usuarios->getCargo();
+$rol = $usuarios->getRol();
 $nombreRol = $usuarios->getNombreRol();
 
 $mysql = new MySQL();
@@ -19,160 +20,14 @@ $mysql->conectar();
 
 $empleados = $mysql->efectuarConsulta("SELECT IDempleado, nombre, numDocumento, roles.nombre_rol, cargos.nombreCargo, departamentos.nombreDepartamento, fechaIngreso, salarioBase, estado, correoElectronico, telefono, imagen FROM empleados JOIN cargos ON cargos.IDcargo = empleados.cargo_id JOIN departamentos ON departamentos.IDdepartamento = empleados.departamento_id JOIN roles ON rol_id = id_rol");
 
+$cargos = $mysql->efectuarConsulta("SELECT * FROM cargos");
+$departamentos = $mysql->efectuarConsulta("SELECT * FROM departamentos");
+$roles = $mysql->efectuarConsulta("SELECT * FROM roles");
 
 
-if (isset($_GET['IDempleado'])) {
-  $id = intval($_GET['IDempleado']);
-  $empleados = $mysql->efectuarConsulta("SELECT * FROM empleados WHERE IDempleado = '$id'");
-  $cargos = $mysql->efectuarConsulta("SELECT * FROM cargos");
-  $departamentos = $mysql->efectuarConsulta("SELECT * FROM departamentos");
-  $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
+
+
 ?>
-  <div class="modal show" id="exampleModal" tabindex="-1" style="display:block; background:rgba(0,0,0,0.5);">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header bg-warning">
-          <h5 class="modal-title fw-bold">Editar empleado</h5>
-          <a href="index.php" class="btn-close"></a>
-        </div>
-        <div class="modal-body">
-          <form action="./controllers/editarEmpleado.php" method="post" enctype="multipart/form-data" class="px-3">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <?php $fila = $empleados->fetch_assoc() ?>
-                  <label for="nombre" class="form-label">Nombre completo:</label>
-                  <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $fila["nombre"] ?>">
-
-
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label for="numDocumento" class="form-label">Numero de documento:</label>
-                  <input type="number" class="form-control" id="numDocumento" name="numDocumento" value="<?php echo $fila["numDocumento"] ?>">
-                </div>
-              </div>
-            </div>
-
-
-            <div class="mb-3">
-              <label for="cargo" class="form-label">Cargo</label>
-              <select class="form-select" aria-label="Default select example" id="cargo" name="cargo">
-                <?php while ($filaCargos = $cargos->fetch_assoc()): ?>
-                  <option value="<?php echo $filaCargos["IDcargo"] ?>" <?php echo ($fila["cargo_id"] == $filaCargos["IDcargo"]) ? 'selected' : "" ?>><?php echo $filaCargos["nombreCargo"] ?></option>
-                <?php endwhile; ?>
-              </select>
-            </div>
-
-
-            <div class="row">
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label class="form-label fs-5" for="">Departamento</label>
-                  <?php while ($filaDepartamentos = $departamentos->fetch_assoc()): ?>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="departamento" id="<?php echo $filaDepartamentos["nombreDepartamento"] ?>" value="<?php echo $filaDepartamentos["IDdepartamento"] ?>" <?php echo ($fila["departamento_id"] == $filaDepartamentos["IDdepartamento"]) ? 'checked' : "" ?>>
-
-                      <label class="form-check-label" for="<?php echo $filaDepartamentos["nombreDepartamento"] ?>">
-                        <?php echo $filaDepartamentos["nombreDepartamento"] ?>
-                      </label>
-                    </div>
-                  <?php endwhile; ?>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label for="fecha" class="form-label">Fecha de ingreso:</label>
-                  <input type="date" class="form-control" id="fecha" name="fechaIngreso" value="<?php echo $fila["fechaIngreso"] ?>" required>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label for="salario" class="form-label">Salario base:</label>
-                  <input type="number" class="form-control" id="salario" name="salarioBase" value="<?php echo $fila["salarioBase"] ?>" required>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label for="correoElectronico" class="form-label">Correo Electronico:</label>
-                  <input type="email" class="form-control" id="correoElectronico" name="correoElectronico" value="<?php echo $fila["correoElectronico"] ?>" required>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-6">
-
-                <div class="mb-3">
-                  <label for="telefono" class="form-label">Telefono de contacto:</label>
-                  <input type="number" class="form-control" id="telefono" name="telefono" value="<?php echo $fila["telefono"] ?>" required>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label for="cargo" class="form-label">Estado</label>
-                  <select class="form-select" aria-label="Default select example" id="cargo" name="estado" required>
-                    <option value="Activo" <?php echo ($fila["estado"] == "Activo") ? 'checked' : "" ?>>Activo</option>
-                    <option value="Inactivo" <?php echo ($fila["estado"] == "Inactivo") ? 'checked' : "" ?>>Inactivo</option>
-
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="row mt-2 mb-3">
-              <div class="col-md-8">
-                <div class="mt-2">
-                  <label for="foto" class="form-label">Seleccione una imagen:</label>
-                  <input type="file" class="form-control" id="foto" name="foto" accept=".jpg,.jpeg,.png">
-                  <input type="hidden" name="id" value="<?php echo $fila["IDempleado"] ?>">
-                </div>
-              </div>
-              <div class="col-md-4 text-center">
-                <label for="">Imagen actual</label>
-                <img src="<?php echo $fila["imagen"] ?>" class="img-fluid w-50" alt="">
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-12">
-                <div class="mb-3">
-                  <label for="rol" class="form-label">Rol:</label>
-                  <select class="form-select" id=rol" name="rol" required>
-                    <?php while ($filaRoles = $roles->fetch_assoc()): ?>
-                      <option value="<?php echo $filaRoles["id_rol"] ?>" <?php echo ($fila["rol_id"] == $filaRoles["id_rol"] ? "selected" : "") ?>><?php echo $filaRoles["nombre_rol"] ?></option>
-                    <?php endwhile; ?>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="row mb-4">
-              <div class="col-md-6">
-                <label for="oldPassword" class="form-label">Contraseña antigua:</label>
-                <input type="text" class="form-control" id="oldPassword" name="oldPassword" value="">
-              </div>
-              <div class="col-md-6">
-                <label for="newPassword" class="form-label">Contraseña nueva:</label>
-                <input type="text" class="form-control" id="oldPassword" name="newPassword" value="">
-              </div>
-            </div>
-            <button type="submit" class="btn btn-warning w-100 fw-bold fs-5">Enviar</button>
-            <div class="text-center mt-3">
-              <a href="../index.php" class="text-center">Volver al listado de empleados</a>
-            </div>
-
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-<?php } ?>
-
 
 
 
@@ -244,6 +99,12 @@ if (isset($_GET['IDempleado'])) {
   <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.5.0/css/rowReorder.dataTables.css" />
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.6/css/responsive.dataTables.css" />
 
+  <!-- Jquery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!--  JS externo -->
+  <script src="./public/js/gestionarEmpleados.js"></script>
 </head>
 
 <body class="layout-fixed sidebar-expand-lg sidebar-open bg-body-tertiary">
@@ -414,7 +275,7 @@ if (isset($_GET['IDempleado'])) {
       <!--begin::Sidebar Brand-->
       <div class="sidebar-brand">
         <!--begin::Brand Link-->
-        <a href="./index.html" class="brand-link">
+        <a href="./index.php" class="brand-link">
           <!--begin::Brand Image-->
           <img
             src="./assets/img/AdminLTELogo.png"
@@ -448,12 +309,14 @@ if (isset($_GET['IDempleado'])) {
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="./views/crearEmpleado.php" class="nav-link">
-                    <i class="fa-solid fa-circle-plus"></i>
-                    <p>Crear empleado</p>
-                  </a>
-                </li>
+                <?php if ($rol == 1) { ?>
+                  <li class="nav-item">
+                    <a href="./views/crearEmpleado.php" class="nav-link">
+                      <i class="fa-solid fa-circle-plus"></i>
+                      <p>Crear empleado</p>
+                    </a>
+                  </li>
+                <?php } ?>
                 <li class="nav-item">
                   <a href="./index.php" class="nav-link active">
                     <i class="fa-regular fa-eye"></i>
@@ -490,9 +353,6 @@ if (isset($_GET['IDempleado'])) {
               </ul>
             </li>
 
-
-
-
             <li class="nav-header">GRAFICOS</li>
             <li class="nav-item">
               <a href="./views/graficoBarras.php" class="nav-link">
@@ -500,6 +360,15 @@ if (isset($_GET['IDempleado'])) {
                 <p>Grafico de barras</p>
               </a>
             </li>
+
+            <li class="nav-header">CERRAR SESION</li>
+            <li class="nav-item">
+              <a href="./controllers/logout.php" class="nav-link">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <p>Log out</p>
+              </a>
+            </li>
+
           </ul>
           <!--end::Sidebar Menu-->
         </nav>
@@ -517,12 +386,19 @@ if (isset($_GET['IDempleado'])) {
           <div class="row">
             <div class="col-sm-6">
               <h3 class="mb-0 fw-bold">Empleados</h3>
+              <h4 class="mt-2">Bienvenido: <span class="fw-bold text-primary"><?php echo $nombre ?> </span> </h4>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-end">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Listado de empleados</li>
               </ol>
+            </div>
+          </div>
+
+          <div class="row my-2">
+            <div class="col-sm-6">
+              <button class="btn btn-primary" id="abrirCrearFrm">Crear nuevo empleado</button>
             </div>
           </div>
           <!--end::Row-->
@@ -532,15 +408,12 @@ if (isset($_GET['IDempleado'])) {
       <div class="app-content">
         <!--begin::Container-->
         <div class="container-fluid">
-          <!-- Info boxes -->
-
-          <!-- /.row -->
 
           <!--begin::Row-->
           <div class="row">
             <div class="col-md-12">
               <div class="card mb-4">
-                <div class="card-header">
+                <div class="card-header bg-info text-light">
                   <h5 class="card-title fw-bold">Lista de empleados</h5>
 
                   <div class="card-tools">
@@ -572,7 +445,7 @@ if (isset($_GET['IDempleado'])) {
                 <div class="card-body">
                   <!--begin::Row-->
                   <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12" id="contenedorTabla">
                       <div class="table-responsive">
                         <table class="table table-striped table-bordered display" id="tblEmpleados">
                           <thead class="text-center">
@@ -585,7 +458,6 @@ if (isset($_GET['IDempleado'])) {
 
                               <th scope="col" class="text-dark">Cargo</th>
                               <?php if ($rol == 1) { ?>
-                                <th scope="col" class="text-dark">Acciones</th>
                                 <th scope="col" class="text-dark">Rol</th>
                               <?php } ?>
 
@@ -594,6 +466,10 @@ if (isset($_GET['IDempleado'])) {
                               <th scope="col" class="text-dark">Estado</th>
                               <th scope="col" class="text-dark">Telefono</th>
                               <th scope="col" class="text-dark">E-mail</th>
+
+                              <?php if ($rol == 1) { ?>
+                                <th scope="col" class="text-dark">Acciones</th>
+                              <?php } ?>
 
                             </tr>
                           </thead>
@@ -617,52 +493,13 @@ if (isset($_GET['IDempleado'])) {
                                 <td>
                                   <?php echo $fila["nombreCargo"] ?>
                                 </td>
-                                <?php
-                                if ($rol == 1) { ?>
-                                  <td>
-                                    <div class="d-flex">
-                                      <!-- Button trigger modal -->
 
-                                      <a href="./index.php?IDempleado=<?php echo $fila["IDempleado"]; ?>"><button class="btn btn-outline-warning mx-2"><i class="fa-solid fa-pen-to-square"></i></button></a>
-
-                                      <!-- Modal -->
-                                      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                          <div class="modal-content">
-                                            <div class="modal-header">
-                                              <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-
-                                            </div>
-                                            <div class="modal-footer">
-                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                              <button type="button" class="btn btn-primary">Save changes</button>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-
-
-                                      <?php
-                                      if ($fila["estado"] == "Activo") { ?>
-
-                                        <a href="./controllers/eliminarEmpleado.php?IDempleado=<?php echo $fila["IDempleado"]; ?>" onclick="return confirm('¿Desea eliminar esta persona?')"><button class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button></a>
-                                      <?php } else { ?>
-                                        <a href="./controllers/eliminarEmpleado.php?IDempleado=<?php echo $fila["IDempleado"]; ?>" onclick="return confirm('¿Desea reintegrar esta persona?')"><button class="btn btn-outline-success"><i class="fa-solid fa-check"></i></button></a>
-
-                                      <?php } ?>
-                                    </div>
-
-
-                                  </td>
+                                <?php if ($rol == 1) { ?>
 
                                   <td>
                                     <?php echo $fila["nombre_rol"] ?>
                                   </td>
                                 <?php } ?>
-
                                 <td>
                                   <?php echo $fila["fechaIngreso"] ?>
                                 </td>
@@ -678,6 +515,26 @@ if (isset($_GET['IDempleado'])) {
                                 <td>
                                   <?php echo $fila["correoElectronico"] ?>
                                 </td>
+
+                                <?php
+                                if ($rol == 1) { ?>
+                                  <td>
+                                    <button class="btn btn-outline-warning mx-1 btn-editar" data-id="<?php echo $fila["IDempleado"] ?>"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    <?php
+                                    if ($fila["estado"] == "Activo") { ?>
+
+                                      <button class="btn btn-outline-danger btn-eliminar"><i class="fa-solid fa-trash" data-id="<?php echo $fila["IDempleado"] ?>"></i></button>
+                                    <?php } else { ?>
+                                      <button class="btn btn-outline-success btn-eliminar"><i class="fa-solid fa-check" data-id="<?php echo $fila["IDempleado"]?>"></i></button>
+
+                                    <?php } ?>
+
+
+
+                                  </td>
+
+
+                                <?php } ?>
 
                               </tr>
 

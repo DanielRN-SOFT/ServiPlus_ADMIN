@@ -2,6 +2,11 @@
 // Generar reporte
 require_once '../libs/fpdf/fpdf.php';
 require_once '../controllers/empleadoController.php';
+session_start();
+if ($_SESSION['acceso'] == NULL || $_SESSION["acceso"] == false) {
+    header("Location: ./login.php");
+    exit();
+}
 date_default_timezone_set('America/Bogota');
 $controlador = new empleadoController();
 $empleados = $controlador->obtenerEmpleados();
@@ -11,7 +16,7 @@ $pdf = new FPDF();
 
 $pdf->AddPage();
 
-
+$pdf->Image('../assets/img/logoEmpresa.jpg', 10, 5, 30);
 $pdf->SetXY(0,30);
 $pdf->SetFont("Arial", "B", 16);
 $pdf->Cell(0,10, "Listado de empleados", 0,1,'C');
