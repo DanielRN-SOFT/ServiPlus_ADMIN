@@ -1,0 +1,23 @@
+:root{
+    --confirmar: #28a745;
+    --eliminar: #dc3545;
+    --advertencia: #ffc107;
+    --informacion: #007bff;
+
+    --verdeSena: #008000;
+    --blanco: #ffffff;
+    --grisClaro: #f8f9fa;
+    --textoPrincipal: #212529;
+
+}
+
+.bg-sena{
+    background-color: var(--verdeSena);
+}
+
+
+.btn-confirmar{
+    background-color: var(--confirmar);
+    color: var(--blanco);
+}
+

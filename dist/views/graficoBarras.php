@@ -259,7 +259,7 @@ $rol = $usuarios->getRol();
             class="brand-image opacity-75 shadow" />
           <!--end::Brand Image-->
           <!--begin::Brand Text-->
-          <span class="brand-text fw-light">AdminLTE 4</span>
+          <span class="brand-text fw-light">ServiPlus</span>
           <!--end::Brand Text-->
         </a>
         <!--end::Brand Link-->
@@ -286,12 +286,7 @@ $rol = $usuarios->getRol();
               </a>
               <ul class="nav nav-treeview">
                 <?php if ($rol == 1) { ?>
-                  <li class="nav-item">
-                    <a href="./crearEmpleado.php" class="nav-link">
-                      <i class="fa-solid fa-circle-plus"></i>
-                      <p>Crear empleado</p>
-                    </a>
-                  </li>
+                
                 <?php } ?>
                 <li class="nav-item">
                   <a href="../index.php" class="nav-link">
@@ -455,7 +450,7 @@ $rol = $usuarios->getRol();
       <!--begin::Copyright-->
       <strong>
         Copyright &copy; 2014-2025&nbsp;
-        <a href="https://adminlte.io" class="text-decoration-none">AdminLTE.io</a>.
+        <a href="#" class="text-decoration-none">ServiPlus.com</a>.
       </strong>
       All rights reserved.
       <!--end::Copyright-->

@@ -90,7 +90,9 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
   <link rel="stylesheet" href="./css/adminlte.css" />
   <!--end::Required Plugin(AdminLTE)-->
 
-  <!-- apexcharts -->
+  <link rel="stylesheet" href="./assets/css/styles.css">
+
+  <!-- Datatables -->
 
   <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css" />
   <link rel="stylesheet" href="https://cdn.datatables.net/columncontrol/1.1.0/css/columnControl.dataTables.css" />
@@ -283,7 +285,7 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
             class="brand-image opacity-75 shadow" />
           <!--end::Brand Image-->
           <!--begin::Brand Text-->
-          <span class="brand-text fw-light">AdminLTE 4</span>
+          <span class="brand-text fw-light">ServiPlus</span>
           <!--end::Brand Text-->
         </a>
         <!--end::Brand Link-->
@@ -310,12 +312,7 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
               </a>
               <ul class="nav nav-treeview">
                 <?php if ($rol == 1) { ?>
-                  <li class="nav-item">
-                    <a href="./views/crearEmpleado.php" class="nav-link">
-                      <i class="fa-solid fa-circle-plus"></i>
-                      <p>Crear empleado</p>
-                    </a>
-                  </li>
+                  
                 <?php } ?>
                 <li class="nav-item">
                   <a href="./index.php" class="nav-link active">
@@ -396,11 +393,14 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
             </div>
           </div>
 
+          <?php if($rol == 1){ ?>
           <div class="row my-2">
             <div class="col-sm-6">
               <button class="btn btn-primary" id="abrirCrearFrm">Crear nuevo empleado</button>
             </div>
           </div>
+
+          <?php } ?>
           <!--end::Row-->
         </div>
         <!--end::Container-->
@@ -523,9 +523,12 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
                                     <?php
                                     if ($fila["estado"] == "Activo") { ?>
 
-                                      <button class="btn btn-outline-danger btn-eliminar"><i class="fa-solid fa-trash" data-id="<?php echo $fila["IDempleado"] ?>"></i></button>
+                                      <button class="btn btn-outline-danger btn-eliminar"
+                                        data-id="<?php echo $fila['IDempleado']; ?>">
+                                        <i class="fa-solid fa-trash"></i>
+                                      </button>
                                     <?php } else { ?>
-                                      <button class="btn btn-outline-success btn-eliminar"><i class="fa-solid fa-check" data-id="<?php echo $fila["IDempleado"]?>"></i></button>
+                                      <button class="btn btn-outline-success btn-reintegrar" data-id="<?php echo $fila["IDempleado"] ?>"><i class="fa-solid fa-check"></i></button>
 
                                     <?php } ?>
 
@@ -577,7 +580,7 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
       <!--begin::Copyright-->
       <strong>
         Copyright &copy; 2014-2025&nbsp;
-        <a href="https://adminlte.io" class="text-decoration-none">AdminLTE.io</a>.
+        <a href="#" class="text-decoration-none">Serviplus.com</a>.
       </strong>
       All rights reserved.
       <!--end::Copyright-->
