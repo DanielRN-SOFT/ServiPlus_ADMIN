@@ -1,34 +1,22 @@
 <?php
-require_once 'model/MYSQL.php';
-require_once 'model/usuarios.php';
+require_once '../model/MYSQL.php';
+require_once '../model/usuarios.php';
 session_start();
-
-if ($_SESSION['acceso'] == NULL || $_SESSION["acceso"] == false) {
-  header("Location: ./views/login.php");
-  exit();
+if ($_SESSION["acceso"] == false || $_SESSION["acceso"] == null) {
+  header("Location: ../index.php");
 }
 
+$usuarios = new Usuarios();
+$usuarios = $_SESSION["usuario"];
 
-$usuarios = new usuarios();
-$usuarios = $_SESSION['usuario'];
-$nombre = $usuarios->getNombre();
 $rol = $usuarios->getRol();
-$nombreRol = $usuarios->getNombreRol();
 
 $mysql = new MySQL();
 $mysql->conectar();
-
-$empleados = $mysql->efectuarConsulta("SELECT IDempleado, nombre, numDocumento, roles.nombre_rol, cargos.nombreCargo, departamentos.nombreDepartamento, fechaIngreso, salarioBase, estado, correoElectronico, telefono, imagen FROM empleados JOIN cargos ON cargos.IDcargo = empleados.cargo_id JOIN departamentos ON departamentos.IDdepartamento = empleados.departamento_id JOIN roles ON rol_id = id_rol");
-
-$cargos = $mysql->efectuarConsulta("SELECT * FROM cargos");
 $departamentos = $mysql->efectuarConsulta("SELECT * FROM departamentos");
-$roles = $mysql->efectuarConsulta("SELECT * FROM roles");
-
-
-
+$mysql->desconectar();
 
 ?>
-
 
 
 <!doctype html>
@@ -37,16 +25,17 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>AdminLTE | Ver empleados</title>
+  <title>AdminLTE 4 | Ver departamentos</title>
 
   <!--begin::Accessibility Meta Tags-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+
   <meta name="theme-color" content="#007bff" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)" />
+
   <!--end::Accessibility Meta Tags-->
 
   <!--begin::Primary Meta Tags-->
-  <meta name="title" content="AdminLTE | Dashboard v2" />
+  <meta name="title" content="AdminLTE 4 | Fixed Sidebar" />
   <meta name="author" content="ColorlibHQ" />
   <meta
     name="description"
@@ -59,7 +48,7 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
   <!--begin::Accessibility Features-->
   <!-- Skip links will be dynamically added by accessibility.js -->
   <meta name="supported-color-schemes" content="light dark" />
-  <link rel="preload" href="./css/adminlte.css" as="style" />
+  <link rel="preload" href="../css/adminlte.css" as="style" />
   <!--end::Accessibility Features-->
 
   <!--begin::Fonts-->
@@ -87,7 +76,7 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
   <!--end::Third Party Plugin(Bootstrap Icons)-->
 
   <!--begin::Required Plugin(AdminLTE)-->
-  <link rel="stylesheet" href="./css/adminlte.css" />
+  <link rel="stylesheet" href="../css/adminlte.css" />
   <!--end::Required Plugin(AdminLTE)-->
 
   <link rel="stylesheet" href="./assets/css/styles.css">
@@ -105,10 +94,26 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- SweetAlert2 -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <!--  JS externo -->
-  <script src="./public/js/gestionarEmpleados.js"></script>
+  <link rel="stylesheet" href="../assets/css/styles.css">
 
+  <!-- Datatables -->
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/columncontrol/1.1.0/css/columnControl.dataTables.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/2.1.1/css/colReorder.dataTables.css" />
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.5.0/css/rowReorder.dataTables.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.6/css/responsive.dataTables.css" />
+
+  <!-- Jquery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Script interno -->
+  <script src="../public/js/gestionarDepartamentos.js"></script>
 </head>
+<!--end::Head-->
+<!--begin::Body-->
 
 <body class="layout-fixed sidebar-expand-lg sidebar-open bg-body-tertiary">
   <!--begin::App Wrapper-->
@@ -144,88 +149,7 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
           <!--end::Navbar Search-->
 
           <!--begin::Messages Dropdown Menu-->
-          <li class="nav-item dropdown">
-            <a class="nav-link" data-bs-toggle="dropdown" href="#">
-              <i class="bi bi-chat-text"></i>
-              <span class="navbar-badge badge text-bg-danger">3</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-              <a href="#" class="dropdown-item">
-                <!--begin::Message-->
-                <div class="d-flex">
-                  <div class="flex-shrink-0">
-                    <img
-                      src="./assets/img/user1-128x128.jpg"
-                      alt="User Avatar"
-                      class="img-size-50 rounded-circle me-3" />
-                  </div>
-                  <div class="flex-grow-1">
-                    <h3 class="dropdown-item-title">
-                      Brad Diesel
-                      <span class="float-end fs-7 text-danger"><i class="bi bi-star-fill"></i></span>
-                    </h3>
-                    <p class="fs-7">Call me whenever you can...</p>
-                    <p class="fs-7 text-secondary">
-                      <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-                    </p>
-                  </div>
-                </div>
-                <!--end::Message-->
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
-                <!--begin::Message-->
-                <div class="d-flex">
-                  <div class="flex-shrink-0">
-                    <img
-                      src="./assets/img/user8-128x128.jpg"
-                      alt="User Avatar"
-                      class="img-size-50 rounded-circle me-3" />
-                  </div>
-                  <div class="flex-grow-1">
-                    <h3 class="dropdown-item-title">
-                      John Pierce
-                      <span class="float-end fs-7 text-secondary">
-                        <i class="bi bi-star-fill"></i>
-                      </span>
-                    </h3>
-                    <p class="fs-7">I got your message bro</p>
-                    <p class="fs-7 text-secondary">
-                      <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-                    </p>
-                  </div>
-                </div>
-                <!--end::Message-->
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
-                <!--begin::Message-->
-                <div class="d-flex">
-                  <div class="flex-shrink-0">
-                    <img
-                      src="./assets/img/user3-128x128.jpg"
-                      alt="User Avatar"
-                      class="img-size-50 rounded-circle me-3" />
-                  </div>
-                  <div class="flex-grow-1">
-                    <h3 class="dropdown-item-title">
-                      Nora Silvester
-                      <span class="float-end fs-7 text-warning">
-                        <i class="bi bi-star-fill"></i>
-                      </span>
-                    </h3>
-                    <p class="fs-7">The subject goes here</p>
-                    <p class="fs-7 text-secondary">
-                      <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-                    </p>
-                  </div>
-                </div>
-                <!--end::Message-->
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-            </div>
-          </li>
+
           <!--end::Messages Dropdown Menu-->
 
           <!--begin::Notifications Dropdown Menu-->
@@ -266,7 +190,9 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
           </li>
           <!--end::Fullscreen Toggle-->
 
+          <!--begin::User Menu Dropdown-->
 
+          <!--end::User Menu Dropdown-->
         </ul>
         <!--end::End Navbar Links-->
       </div>
@@ -278,10 +204,10 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
       <!--begin::Sidebar Brand-->
       <div class="sidebar-brand">
         <!--begin::Brand Link-->
-        <a href="./index.php" class="brand-link">
+        <a href="../index.php" class="brand-link">
           <!--begin::Brand Image-->
           <img
-            src="./assets/img/AdminLTELogo.png"
+            src="../assets/img/AdminLTELogo.png"
             alt="AdminLTE Logo"
             class="brand-image opacity-75 shadow" />
           <!--end::Brand Image-->
@@ -307,27 +233,30 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
               <a href="#" class="nav-link active">
                 <i class="bi bi-person"></i>
                 <p>
-                  Infromacion
+                  Informacion
                   <i class="nav-arrow bi bi-chevron-right"></i>
                 </p>
               </a>
               <ul class="nav nav-treeview">
+                <?php if ($rol == 1) { ?>
+
+                <?php } ?>
                 <li class="nav-item">
-                  <a href="./index.php" class="nav-link active">
+                  <a href="../index.php" class="nav-link">
                     <i class="fa-regular fa-eye"></i>
                     <p>Ver empleados</p>
                   </a>
                 </li>
 
                 <li class="nav-item">
-                  <a href="./views/departamentos.php" class="nav-link">
+                  <a href="./departamentos.php" class="nav-link active">
                     <i class="fa-regular fa-eye"></i>
                     <p>Ver departamentos</p>
                   </a>
                 </li>
 
                 <li class="nav-item">
-                  <a href="./views/cargos.php" class="nav-link">
+                  <a href="./cargos.php" class="nav-link">
                     <i class="fa-regular fa-eye"></i>
                     <p>Ver cargos</p>
                   </a>
@@ -347,39 +276,39 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="./views/generar_pdf.php" class="nav-link">
+                    <a href="./generar_pdf.php" class="nav-link">
                       <i class="fa-solid fa-globe"></i>
                       <p>PDF General</p>
                     </a>
                   </li>
                   <li class="nav-item">
-
-                    <a href="./views/ListadoDepartamentosPDF.php" class="nav-link">
+                    <a href="./ListadoDepartamentosPDF.php" class="nav-link">
                       <i class="fa-solid fa-building-user"></i>
                       <p>PDF por departamento</p>
                     </a>
                   </li>
-
                 </ul>
               </li>
 
+
+
+
               <li class="nav-header">GRAFICOS</li>
               <li class="nav-item">
-                <a href="./views/graficoBarras.php" class="nav-link">
+                <a href="./graficoBarras.php" class="nav-link">
                   <i class="fa-solid fa-signal"></i>
                   <p>Grafico de barras</p>
                 </a>
               </li>
-            <?php } ?>
 
+            <?php } ?>
             <li class="nav-header">CERRAR SESION</li>
             <li class="nav-item">
-              <a href="./controllers/logout.php" class="nav-link">
+              <a href="../controllers/logout.php" class="nav-link">
                 <i class="fa-solid fa-right-from-bracket"></i>
                 <p>Log out</p>
               </a>
             </li>
-
           </ul>
           <!--end::Sidebar Menu-->
         </nav>
@@ -387,6 +316,7 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
       <!--end::Sidebar Wrapper-->
     </aside>
     <!--end::Sidebar-->
+
     <!--begin::App Main-->
     <main class="app-main">
       <!--begin::App Content Header-->
@@ -396,188 +326,118 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
           <!--begin::Row-->
           <div class="row">
             <div class="col-sm-6">
-              <h3 class="mb-0 fw-bold">Empleados</h3>
-              <h4 class="mt-2">Bienvenido: <span class="fw-bold text-primary"><?php echo $nombre ?> </span> </h4>
+              <h3 class="mb-0 fw-bold">Departamentos</h3>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-end">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Listado de empleados</li>
+                <li class="breadcrumb-item active" aria-current="page">Departamentos</li>
               </ol>
             </div>
           </div>
 
           <?php if ($rol == 1) { ?>
+
             <div class="row my-2">
-              <div class="col-sm-6">
-                <button class="btn btn-primary" id="abrirCrearFrm">Crear nuevo empleado</button>
+              <div class="col-sm-12">
+                <button id="crearDepartamento" class="btn btn-primary">Crear departamento</button>
               </div>
             </div>
 
+
           <?php } ?>
+
           <!--end::Row-->
         </div>
         <!--end::Container-->
       </div>
+      <!--end::App Content Header-->
+      <!--begin::App Content-->
       <div class="app-content">
         <!--begin::Container-->
         <div class="container-fluid">
-
           <!--begin::Row-->
           <div class="row">
-            <div class="col-md-12">
-              <div class="card mb-4">
+            <div class="col-12">
+              <!-- Default box -->
+              <div class="card">
                 <div class="card-header">
-                  <h5 class="card-title fw-bold fs-5">Lista de empleados</h5>
+                  <h3 class="card-title">Lista de departamentos</h3>
 
                   <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse">
+                    <button
+                      type="button"
+                      class="btn btn-tool"
+                      data-lte-toggle="card-collapse"
+                      title="Collapse">
                       <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
                       <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
                     </button>
-                    <div class="btn-group">
-                      <button
-                        type="button"
-                        class="btn btn-tool dropdown-toggle"
-                        data-bs-toggle="dropdown">
-                        <i class="bi bi-wrench"></i>
-                      </button>
-
-                    </div>
-                    <button type="button" class="btn btn-tool" data-lte-toggle="card-remove">
+                    <button
+                      type="button"
+                      class="btn btn-tool"
+                      data-lte-toggle="card-remove"
+                      title="Remove">
                       <i class="bi bi-x-lg"></i>
                     </button>
                   </div>
                 </div>
-                <!-- /.card-header -->
                 <div class="card-body">
-                  <!--begin::Row-->
-                  <div class="row">
-                    <div class="col-md-12" id="contenedorTabla">
-                      <div class="table-responsive">
-                        <table class="table table-striped table-bordered display" id="tblEmpleados">
-                          <thead class="text-center">
-                            <tr class="bg bg-dark">
+                  <table class="table table-striped table-bordered display" id="tblEmpleados">
+                    <thead>
+                      <tr>
 
-                              <th scope="col" class="text-dark">Imagen</th>
-                              <th scope="col" class="text-dark">Nombre</th>
-                              <th scope="col" class="text-dark">No. Documento</th>
-                              <th scope="col" class="text-dark">Departamento</th>
+                        <th>Nombre</th>
+                        <th>Estado</th>
+                        <?php if ($rol == 1) { ?>
+                          <th>Acciones</th>
+                        <?php } ?>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <?php while ($fila = $departamentos->fetch_assoc()): ?>
 
-                              <th scope="col" class="text-dark">Cargo</th>
-                              <?php if ($rol == 1) { ?>
-                                <th scope="col" class="text-dark">Rol</th>
+                          <td><?php echo $fila["nombreDepartamento"] ?></td>
+                          <td><?php echo $fila["estadoDepartamento"] ?></td>
+
+                          <?php
+                          if ($rol == 1) { ?>
+                            <td>
+                              <button class="btn btn-outline-warning mx-1 btn-editar" data-id="<?php echo $fila["IDdepartamento"] ?>"><i class="fa-solid fa-pen-to-square"></i></button>
+                              <?php
+                              if ($fila["estadoDepartamento"] == "Activo") { ?>
+
+                                <button class="btn btn-outline-danger btn-eliminar"
+                                  data-id="<?php echo $fila['IDdepartamento']; ?>"
+                                  data-nombre="<?php echo $fila["nombreDepartamento"] ?>">
+                                  <i class=" fa-solid fa-trash"></i>
+                                </button>
+                              <?php } else { ?>
+                                <button class="btn btn-outline-success btn-reintegrar" data-id="<?php echo $fila["IDdepartamento"] ?>" data-nombre="<?php echo $fila["nombreDepartamento"] ?>"><i class=" fa-solid fa-check"></i></button>
+
                               <?php } ?>
 
-                              <th scope="col" class="text-dark"> Ingreso</th>
-                              <th scope="col" class="text-dark">Salario</th>
-                              <th scope="col" class="text-dark">Estado</th>
-                              <th scope="col" class="text-dark">Telefono</th>
-                              <th scope="col" class="text-dark">E-mail</th>
-
-                              <?php if ($rol == 1) { ?>
-                                <th scope="col" class="text-dark">Acciones</th>
-                              <?php } ?>
-
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <?php while ($fila = $empleados->fetch_assoc()): ?>
-                              <tr>
-
-                                <td class="text-center">
-                                  <img src=" <?php echo $fila["imagen"] ?>" width="50" alt="">
-                                </td>
-                                <td>
-                                  <?php echo $fila["nombre"] ?>
-                                </td>
-                                <td>
-                                  <?php echo $fila["numDocumento"] ?>
-                                </td>
-                                <td>
-                                  <?php echo $fila["nombreDepartamento"] ?>
-                                </td>
-
-                                <td>
-                                  <?php echo $fila["nombreCargo"] ?>
-                                </td>
-
-                                <?php if ($rol == 1) { ?>
-
-                                  <td>
-                                    <?php echo $fila["nombre_rol"] ?>
-                                  </td>
-                                <?php } ?>
-                                <td>
-                                  <?php echo $fila["fechaIngreso"] ?>
-                                </td>
-                                <td>
-                                  <?php echo $fila["salarioBase"] ?>
-                                </td>
-                                <td>
-                                  <?php echo $fila["estado"] ?>
-                                </td>
-                                <td>
-                                  <?php echo $fila["telefono"] ?>
-                                </td>
-                                <td>
-                                  <?php echo $fila["correoElectronico"] ?>
-                                </td>
-
-                                <?php
-                                if ($rol == 1) { ?>
-                                  <td>
-                                    <button class="btn btn-outline-warning mx-1 btn-editar" data-id="<?php echo $fila["IDempleado"] ?>"><i class="fa-solid fa-pen-to-square"></i></button>
-                                    <?php
-                                    if ($fila["estado"] == "Activo") { ?>
-
-                                      <button class="btn btn-outline-danger btn-eliminar" data-nombre="<?php echo $fila['nombre']; ?>" data-num="<?php echo $fila["numDocumento"] ?>"
-                                        data-id="<?php echo $fila['IDempleado']; ?>">
-                                        <i class="fa-solid fa-trash"></i>
-                                      </button>
-                                    <?php } else { ?>
-                                      <button class="btn btn-outline-success btn-reintegrar" data-nombre="<?php echo $fila['nombre']; ?>" data-id="<?php echo $fila["IDempleado"] ?>" data-num="<?php echo $fila['numDocumento']; ?>"><i class="fa-solid fa-check"></i></button>
-
-                                    <?php } ?>
+                            </td>
 
 
+                          <?php } ?>
+                      </tr>
+                    <?php endwhile; ?>
+                    </tbody>
 
-                                  </td>
-
-
-                                <?php } ?>
-
-                              </tr>
-
-
-
-
-                            <?php endwhile; ?>
-                          </tbody>
-
-                        </table>
-                      </div>
-                    </div>
-                    <!-- /.col -->
-
-                    <!-- /.col -->
-                  </div>
-                  <!--end::Row-->
+                  </table>
                 </div>
-                <!-- ./card-body -->
-                <div class="card-footer">
-                </div>
-                <!-- /.card-footer -->
+                <!-- /.card-body -->
+
+                <!-- /.card -->
               </div>
-              <!-- /.card -->
             </div>
-            <!-- /.col -->
+            <!--end::Row-->
           </div>
-          <!--end::Row-->
-
-          <!--begin::Row-->
-
-          <!--end::App Content-->
+          <!--end::Container-->
+        </div>
+        <!--end::App Content-->
     </main>
     <!--end::App Main-->
     <!--begin::Footer-->
@@ -588,7 +448,7 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
       <!--begin::Copyright-->
       <strong>
         Copyright &copy; 2014-2025&nbsp;
-        <a href="#" class="text-decoration-none">Serviplus.com</a>.
+        <a href="https://adminlte.io" class="text-decoration-none">AdminLTE.io</a>.
       </strong>
       All rights reserved.
       <!--end::Copyright-->
@@ -610,7 +470,7 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js"
     crossorigin="anonymous"></script>
   <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
-  <script src="./js/adminlte.js"></script>
+  <script src="../js/adminlte.js"></script>
   <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
   <script>
     const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
@@ -640,12 +500,10 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
       }
     });
   </script>
+
   <!--end::OverlayScrollbars Configure-->
+  <!--end::Script-->
 
-  <!-- OPTIONAL SCRIPTS -->
-
-
-  </script>
   <script src="https://kit.fontawesome.com/4c0cbe7815.js" crossorigin="anonymous"></script>
 
   <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
@@ -661,8 +519,7 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
   <script src="https://cdn.datatables.net/responsive/3.0.6/js/dataTables.responsive.js"></script>
   <script src="https://cdn.datatables.net/responsive/3.0.6/js/responsive.dataTables.js"></script>
 
-  <script src="./public/js/datatable.js"></script>
-  <!--end::Script-->
+  <script src="../public/js/datatable.js"></script>
 </body>
 <!--end::Body-->
 

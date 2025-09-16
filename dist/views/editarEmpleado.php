@@ -169,8 +169,8 @@ $mysql->desconectar();
                         <div class="mb-3">
                             <label for="cargo" class="form-label">Estado</label>
                             <select class="form-select" aria-label="Default select example" id="cargo" name="estado" required>
-                                <option value="Activo" <?php echo ($fila["estado"] == "Activo") ? 'checked' : "" ?>>Activo</option>
-                                <option value="Inactivo" <?php echo ($fila["estado"] == "Inactivo") ? 'checked' : "" ?>>Inactivo</option>
+                                <option value="Activo" <?php echo ($fila["estado"] == "Activo") ? 'selected' : "" ?>>Activo</option>
+                                <option value="Inactivo" <?php echo ($fila["estado"] == "Inactivo") ? 'selected' : "" ?>>Inactivo</option>
 
                             </select>
                         </div>
@@ -218,7 +218,6 @@ $mysql->desconectar();
         </div>
     </div>
 
-    </script>
     <script src="https://kit.fontawesome.com/4c0cbe7815.js" crossorigin="anonymous"></script>
 
 </body>

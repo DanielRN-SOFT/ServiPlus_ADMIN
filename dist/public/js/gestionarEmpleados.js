@@ -81,8 +81,8 @@ $(document).on("click", ".btn-editar", function(){
                 showCancelButton: true,
                 confirmButtonText: "Guardar cambios",
                 cancelButtonText: "Cancelar",
-                 customClass: {
-                confirmButton: "btn btn-confirmar",
+                customClass: {
+                confirmButton: "btn btn-success",
                 cancelButton: "btn btn-danger"
             },
                 preConfirm: () =>{
@@ -125,16 +125,19 @@ $(document).on("click", ".btn-editar", function(){
 
 $(document).on("click", ".btn-eliminar", function(){
     let IDempleado = $(this).data("id");
+    let nombreEmpleado = $(this).data("nombre");
+    let numDocumento = $(this).data("num");
     console.log("ID: " + IDempleado);
          Swal.fire({
             title: '<strong class="text-danger">Eliminar</strong>',
-            text: "Esta seguro de realizar esta accion?",
+            html: `¿Esta seguro de eliminar este empleado?<br> <strong>Nombre:</strong> ${nombreEmpleado} <br> 
+            <strong> Numero de documento: </strong> ${numDocumento}`,
             icon: "warning",
             showCancelButton: true,
             confirmButtonText: 'Si, eliminar empleado',
             cancelButtonText: "Cancelar",
             customClass: {
-                confirmButton: "btn btn-confirmar",
+                confirmButton: "btn btn-success",
                 cancelButton: "btn btn-danger"
             },
             preConfirm: () =>{
@@ -163,16 +166,19 @@ $(document).on("click", ".btn-eliminar", function(){
 // Reintegrar empleado
 $(document).on("click", ".btn-reintegrar", function(){
     let IDempleado = $(this).data("id");
+    let nombreEmpleado = $(this).data("nombre");
+    let numDocumento = $(this).data("num");
     console.log("ID: " + IDempleado);
          Swal.fire({
             title: '<strong class="text-success">Reintegrar empleado</strong>',
-            text: "Esta seguro de realizar esta accion?",
+            html: `¿Esta seguro de reintegrar este empleado?<br> <strong>Nombre:</strong> ${nombreEmpleado} <br> 
+            <strong> Numero de documento: </strong> ${numDocumento}`,
             icon: "warning",
             showCancelButton: true,
             confirmButtonText: 'Si, restablecer empleado',
             cancelButtonText: "Cancelar",
             customClass: {
-                confirmButton: "btn btn-confirmar",
+                confirmButton: "btn btn-success",
                 cancelButton: "btn btn-danger"
             },
             preConfirm: () =>{

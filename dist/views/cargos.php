@@ -1,17 +1,19 @@
 <?php
+require_once '../model/MYSQL.php';
 require_once '../model/usuarios.php';
 
 session_start();
 
-if ($_SESSION["acceso"] == false || $_SESSION["acceso"] == null) {
-  header("Location: ./login.php");
-  exit();
-}
 $usuarios = new Usuarios();
 $usuarios = $_SESSION["usuario"];
 $rol = $usuarios->getRol();
 
+$mysql = new MySQL();
+$mysql->conectar();
+$cargos = $mysql->efectuarConsulta("SELECT * FROM cargos");
+$mysql->desconectar();
 ?>
+
 
 <!doctype html>
 <html lang="en">
@@ -19,17 +21,17 @@ $rol = $usuarios->getRol();
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>AdminLTE | Grafico de barras</title>
+  <title>AdminLTE 4 | Ver departamentos</title>
 
   <!--begin::Accessibility Meta Tags-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="color-scheme" content="light dark" />
+
   <meta name="theme-color" content="#007bff" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)" />
+
   <!--end::Accessibility Meta Tags-->
 
   <!--begin::Primary Meta Tags-->
-  <meta name="title" content="AdminLTE | Dashboard v3" />
+  <meta name="title" content="AdminLTE 4 | Fixed Sidebar" />
   <meta name="author" content="ColorlibHQ" />
   <meta
     name="description"
@@ -42,7 +44,7 @@ $rol = $usuarios->getRol();
   <!--begin::Accessibility Features-->
   <!-- Skip links will be dynamically added by accessibility.js -->
   <meta name="supported-color-schemes" content="light dark" />
-  <link rel="preload" href="./css/adminlte.css" as="style" />
+  <link rel="preload" href="../css/adminlte.css" as="style" />
   <!--end::Accessibility Features-->
 
   <!--begin::Fonts-->
@@ -73,14 +75,41 @@ $rol = $usuarios->getRol();
   <link rel="stylesheet" href="../css/adminlte.css" />
   <!--end::Required Plugin(AdminLTE)-->
 
+  <link rel="stylesheet" href="./assets/css/styles.css">
+
+  <!-- Datatables -->
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/columncontrol/1.1.0/css/columnControl.dataTables.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/2.1.1/css/colReorder.dataTables.css" />
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.5.0/css/rowReorder.dataTables.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.6/css/responsive.dataTables.css" />
+
+  <!-- Jquery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="../assets/css/styles.css">
-  <!-- apexcharts -->
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css"
-    integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0="
-    crossorigin="anonymous" />
+
+  <!-- Datatables -->
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/columncontrol/1.1.0/css/columnControl.dataTables.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/2.1.1/css/colReorder.dataTables.css" />
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.5.0/css/rowReorder.dataTables.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.6/css/responsive.dataTables.css" />
+
+  <!-- Jquery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Script interno -->
+  <script src="../public/js/gestionarDepartamentos.js"></script>
 </head>
+<!--end::Head-->
+<!--begin::Body-->
 
 <body class="layout-fixed sidebar-expand-lg sidebar-open bg-body-tertiary">
   <!--begin::App Wrapper-->
@@ -118,35 +147,6 @@ $rol = $usuarios->getRol();
           <!--begin::Messages Dropdown Menu-->
 
           <!--end::Messages Dropdown Menu-->
-
-          <!--begin::Notifications Dropdown Menu-->
-          <li class="nav-item dropdown">
-            <a class="nav-link" data-bs-toggle="dropdown" href="#">
-              <i class="bi bi-bell-fill"></i>
-              <span class="navbar-badge badge text-bg-warning">15</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-              <span class="dropdown-item dropdown-header">15 Notifications</span>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
-                <i class="bi bi-envelope me-2"></i> 4 new messages
-                <span class="float-end text-secondary fs-7">3 mins</span>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
-                <i class="bi bi-people-fill me-2"></i> 8 friend requests
-                <span class="float-end text-secondary fs-7">12 hours</span>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
-                <i class="bi bi-file-earmark-fill me-2"></i> 3 new reports
-                <span class="float-end text-secondary fs-7">2 days</span>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item dropdown-footer"> See All Notifications </a>
-            </div>
-          </li>
-          <!--end::Notifications Dropdown Menu-->
 
           <!--begin::Fullscreen Toggle-->
           <li class="nav-item">
@@ -200,7 +200,7 @@ $rol = $usuarios->getRol();
               <a href="#" class="nav-link active">
                 <i class="bi bi-person"></i>
                 <p>
-                  Informacion
+                  Información
                   <i class="nav-arrow bi bi-chevron-right"></i>
                 </p>
               </a>
@@ -223,7 +223,7 @@ $rol = $usuarios->getRol();
                 </li>
 
                 <li class="nav-item">
-                  <a href="./cargos.php" class="nav-link">
+                  <a href="./cargos.php" class="nav-link active">
                     <i class="fa-regular fa-eye"></i>
                     <p>Ver cargos</p>
                   </a>
@@ -231,43 +231,44 @@ $rol = $usuarios->getRol();
 
               </ul>
             </li>
-            <li class="nav-header">REPORTES</li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="fa-solid fa-file-pdf"></i>
-                <p>
-                  PDFs
-                  <i class="nav-arrow bi bi-chevron-right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="./generar_pdf.php" class="nav-link">
-                    <i class="fa-solid fa-globe"></i>
-                    <p>PDF General</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="./ListadoDepartamentosPDF.php" class="nav-link">
-                    <i class="fa-solid fa-building-user"></i>
-                    <p>PDF por departamento</p>
-                  </a>
-                </li>
-
-              </ul>
-            </li>
-
-
+            <?php if ($rol == 1) { ?>
+              <li class="nav-header">REPORTES</li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fa-solid fa-file-pdf"></i>
+                  <p>
+                    PDFs
+                    <i class="nav-arrow bi bi-chevron-right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="./generar_pdf.php" class="nav-link">
+                      <i class="fa-solid fa-globe"></i>
+                      <p>PDF General</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="./ListadoDepartamentosPDF.php" class="nav-link">
+                      <i class="fa-solid fa-building-user"></i>
+                      <p>PDF por departamento</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
 
 
-            <li class="nav-header">GRAFICOS</li>
-            <li class="nav-item">
-              <a href="./graficoBarras.php" class="nav-link active">
-                <i class="fa-solid fa-signal"></i>
-                <p>Grafico de barras</p>
-              </a>
-            </li>
 
+
+              <li class="nav-header">GRAFICOS</li>
+              <li class="nav-item">
+                <a href="./graficoBarras.php" class="nav-link">
+                  <i class="fa-solid fa-signal"></i>
+                  <p>Grafico de barras</p>
+                </a>
+              </li>
+
+            <?php } ?>
             <li class="nav-header">CERRAR SESION</li>
             <li class="nav-item">
               <a href="../controllers/logout.php" class="nav-link">
@@ -282,6 +283,7 @@ $rol = $usuarios->getRol();
       <!--end::Sidebar Wrapper-->
     </aside>
     <!--end::Sidebar-->
+
     <!--begin::App Main-->
     <main class="app-main">
       <!--begin::App Content Header-->
@@ -291,89 +293,113 @@ $rol = $usuarios->getRol();
           <!--begin::Row-->
           <div class="row">
             <div class="col-sm-6">
-              <h3 class="mb-0">Graficos de barras</h3>
+              <h3 class="mb-0 fw-bold">Cargos</h3>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-end">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Grafico de barras</li>
+                <li class="breadcrumb-item active" aria-current="page">Cargos</li>
               </ol>
             </div>
           </div>
+
+          <?php if ($rol == 1) { ?>
+
+            <div class="row my-2">
+              <div class="col-sm-12">
+                <button id="crearCargo" class="btn btn-primary">Crear cargo</button>
+              </div>
+            </div>
+
+
+          <?php } ?>
+
           <!--end::Row-->
         </div>
         <!--end::Container-->
       </div>
+      <!--end::App Content Header-->
+      <!--begin::App Content-->
       <div class="app-content">
         <!--begin::Container-->
         <div class="container-fluid">
           <!--begin::Row-->
           <div class="row">
-            <div class="col-lg-6">
-              <div class="card mb-4">
-                <div class="card-header border-0">
-                  <div class="d-flex justify-content-between">
-                    <h3 class="card-title">Cantidad de empleados por departamento</h3>
-                    <a
-                      href="javascript:void(0);"
-                      class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">View Report</a>
+            <div class="col-12">
+              <!-- Default box -->
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">Lista de departamentos</h3>
+
+                  <div class="card-tools">
+                    <button
+                      type="button"
+                      class="btn btn-tool"
+                      data-lte-toggle="card-collapse"
+                      title="Collapse">
+                      <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
+                      <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-tool"
+                      data-lte-toggle="card-remove"
+                      title="Remove">
+                      <i class="bi bi-x-lg"></i>
+                    </button>
                   </div>
                 </div>
                 <div class="card-body">
-                  <div class="d-flex">
+                  <table class="table table-striped table-bordered display" id="tblEmpleados">
+                    <thead>
+                      <tr>
+                        <th>Nombre</th>
+                        <th>Estado</th>
+                        <?php if ($rol == 1) { ?>
+                          <th>Acciones</th>
+                        <?php } ?>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php while ($fila = $cargos->fetch_assoc()): ?>
+                        <tr>
+
+                          <td> <?php echo $fila["nombreCargo"] ?> </td>
+                          <td> <?php echo $fila["estadoCargo"] ?> </td>
+                          <?php if ($rol == 1) { ?>
+                            <td>
+                              <button class="btn btn-outline-warning mx-1 btn-editar" data-id="<?php echo $fila["IDcargo"] ?>"><i class="fa-solid fa-pen-to-square"></i></button>
+                              <?php
+                              if ($fila["estadoCargo"] == "Activo") { ?>
+
+                                <button class="btn btn-outline-danger btn-eliminar" data-nombre="<?php echo $fila['nombreCargo']; ?>"
+                                  data-id="<?php echo $fila['IDcargo']; ?>">
+                                  <i class="fa-solid fa-trash"></i>
+                                </button>
+                              <?php } else { ?>
+                                <button class="btn btn-outline-success btn-reintegrar" data-nombre="<?php echo $fila['nombreCargo']; ?>" data-id="<?php echo $fila["IDcargo"] ?>"><i class="fa-solid fa-check"></i></button>
+
+                              <?php } ?>
 
 
-                    <canvas id="graficoDepartamentos" width="350" height="200"></canvas>
 
-
-                  </div>
-                  <!-- /.d-flex -->
-
-                  <div class="position-relative mb-4">
-                    <div id="visitors-chart"></div>
-                  </div>
+                            </td>
+                          <?php } ?>
+                        </tr>
+                      <?php endwhile   ?>
+                    </tbody>
+                  </table>
                 </div>
+                <!-- /.card-body -->
+
+                <!-- /.card -->
               </div>
-              <!-- /.card -->
-
-
-              <!-- /.card -->
             </div>
-            <!-- /.col-md-6 -->
-            <div class="col-lg-6">
-              <div class="card mb-4">
-                <div class="card-header border-0">
-                  <div class="d-flex justify-content-between">
-                    <h3 class="card-title">Cantidad de personas por cargo</h3>
-                    <a
-                      href="javascript:void(0);"
-                      class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">View Report</a>
-                  </div>
-                </div>
-                <div class="card-body">
-                  <div class="d-flex">
-                    <canvas id="graficoCargos" width="350" height="200"></canvas>
-                  </div>
-                  <!-- /.d-flex -->
-
-                  <div class="position-relative mb-4">
-                    <div id="sales-chart"></div>
-                  </div>
-
-
-                </div>
-              </div>
-              <!-- /.card -->
-
-
-            </div>
-            <!-- /.col-md-6 -->
+            <!--end::Row-->
           </div>
-          <!--end::Row-->
+          <!--end::Container-->
         </div>
-        <!--end::Container-->
-      </div>
-      <!--end::App Content-->
+        <!--end::App Content-->
     </main>
     <!--end::App Main-->
     <!--begin::Footer-->
@@ -384,7 +410,7 @@ $rol = $usuarios->getRol();
       <!--begin::Copyright-->
       <strong>
         Copyright &copy; 2014-2025&nbsp;
-        <a href="#" class="text-decoration-none">ServiPlus.com</a>.
+        <a href="https://adminlte.io" class="text-decoration-none">AdminLTE.io</a>.
       </strong>
       All rights reserved.
       <!--end::Copyright-->
@@ -437,11 +463,25 @@ $rol = $usuarios->getRol();
     });
   </script>
 
-  <script src="https://kit.fontawesome.com/4c0cbe7815.js" crossorigin="anonymous"></script>
-  <script src="../public/js/graficoDepartamento.js"></script>
-  <script src="../public/js/graficoCargo.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <!--end::OverlayScrollbars Configure-->
+  <!--end::Script-->
+
+  <script src="https://kit.fontawesome.com/4c0cbe7815.js" crossorigin="anonymous"></script>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  <script src="https://cdn.datatables.net/2.3.4/js/dataTables.js"></script>
+  <script src="https://cdn.datatables.net/columncontrol/1.1.0/js/dataTables.columnControl.js"></script>
+  <script src="https://cdn.datatables.net/columncontrol/1.1.0/js/columnControl.dataTables.js"></script>
+
+  <script src="https://cdn.datatables.net/colreorder/2.1.1/js/dataTables.colReorder.js"></script>
+  <script src="https://cdn.datatables.net/colreorder/2.1.1/js/colReorder.dataTables.js"></script>
+
+  <script src="https://cdn.datatables.net/rowreorder/1.5.0/js/dataTables.rowReorder.js"></script>
+  <script src="https://cdn.datatables.net/rowreorder/1.5.0/js/rowReorder.dataTables.js"></script>
+  <script src="https://cdn.datatables.net/responsive/3.0.6/js/dataTables.responsive.js"></script>
+  <script src="https://cdn.datatables.net/responsive/3.0.6/js/responsive.dataTables.js"></script>
+
+  <script src="../public/js/datatable.js"></script>
 </body>
 <!--end::Body-->
 

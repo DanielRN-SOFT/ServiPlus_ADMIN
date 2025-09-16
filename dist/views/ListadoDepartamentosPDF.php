@@ -1,20 +1,23 @@
 <?php
-require_once '../controllers/crearEmpleado.php';
+require_once '../model/usuarios.php';
+require_once '../model/MYSQL.php';
+
 session_start();
 
-if ($_SESSION['acceso'] == NULL || $_SESSION["acceso"] == false) {
+if ($_SESSION["acceso"] == false || $_SESSION["acceso"] == null) {
     header("Location: ./login.php");
     exit();
 }
+$usuarios = new Usuarios();
+$usuarios = $_SESSION["usuario"];
+$rol = $usuarios->getRol();
 
-require_once '../model/MYSQL.php';
-$mysql =  new MySQL;
+$mysql = new MySQL();
 $mysql->conectar();
 $departamentos = $mysql->efectuarConsulta("SELECT * FROM departamentos");
 $mysql->desconectar();
 
 ?>
-
 
 <!doctype html>
 <html lang="en">
@@ -22,16 +25,17 @@ $mysql->desconectar();
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>AdminLTE | Listado de departamentos</title>
+    <title>AdminLTE | Grafico de barras</title>
 
     <!--begin::Accessibility Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#007bff" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)" />
     <!--end::Accessibility Meta Tags-->
 
     <!--begin::Primary Meta Tags-->
-    <meta name="title" content="AdminLTE | Dashboard v2" />
+    <meta name="title" content="AdminLTE | Dashboard v3" />
     <meta name="author" content="ColorlibHQ" />
     <meta
         name="description"
@@ -74,12 +78,16 @@ $mysql->desconectar();
     <!--begin::Required Plugin(AdminLTE)-->
     <link rel="stylesheet" href="../css/adminlte.css" />
     <!--end::Required Plugin(AdminLTE)-->
+    <link rel="stylesheet" href="../assets/css/styles.css">
 
     <!-- apexcharts -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css"
+        integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0="
+        crossorigin="anonymous" />
 
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css" />
-
-
+    <script src="../public/js/pdf.js"></script>
 </head>
 
 <body class="layout-fixed sidebar-expand-lg sidebar-open bg-body-tertiary">
@@ -238,7 +246,9 @@ $mysql->desconectar();
                     </li>
                     <!--end::Fullscreen Toggle-->
 
+                    <!--begin::User Menu Dropdown-->
 
+                    <!--end::User Menu Dropdown-->
                 </ul>
                 <!--end::End Navbar Links-->
             </div>
@@ -246,7 +256,7 @@ $mysql->desconectar();
         </nav>
         <!--end::Header-->
         <!--begin::Sidebar-->
-        <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
+        <aside class="app-sidebar bg-sena shadow" data-bs-theme="dark">
             <!--begin::Sidebar Brand-->
             <div class="sidebar-brand">
                 <!--begin::Brand Link-->
@@ -258,7 +268,7 @@ $mysql->desconectar();
                         class="brand-image opacity-75 shadow" />
                     <!--end::Brand Image-->
                     <!--begin::Brand Text-->
-                    <span class="brand-text fw-light">ServiPlus </span>
+                    <span class="brand-text fw-light">ServiPlus</span>
                     <!--end::Brand Text-->
                 </a>
                 <!--end::Brand Link-->
@@ -284,6 +294,9 @@ $mysql->desconectar();
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
+                                <?php if ($rol == 1) { ?>
+
+                                <?php } ?>
                                 <li class="nav-item">
                                     <a href="../index.php" class="nav-link">
                                         <i class="fa-regular fa-eye"></i>
@@ -291,11 +304,24 @@ $mysql->desconectar();
                                     </a>
                                 </li>
 
+                                <li class="nav-item">
+                                    <a href="./departamentos.php" class="nav-link">
+                                        <i class="fa-regular fa-eye"></i>
+                                        <p>Ver departamentos</p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="./cargos.php" class="nav-link">
+                                        <i class="fa-regular fa-eye"></i>
+                                        <p>Ver cargos</p>
+                                    </a>
+                                </li>
+
                             </ul>
                         </li>
                         <li class="nav-header">REPORTES</li>
                         <li class="nav-item">
-
                             <a href="#" class="nav-link">
                                 <i class="fa-solid fa-file-pdf"></i>
                                 <p>
@@ -312,7 +338,7 @@ $mysql->desconectar();
                                 </li>
                                 <li class="nav-item">
                                     <a href="./ListadoDepartamentosPDF.php" class="nav-link active">
-                                        <i class="fa-solid fa-briefcase"></i>
+                                        <i class="fa-solid fa-building-user"></i>
                                         <p>PDF por departamento</p>
                                     </a>
                                 </li>
@@ -348,50 +374,71 @@ $mysql->desconectar();
         <!--begin::App Main-->
         <main class="app-main">
             <!--begin::App Content Header-->
-
+            <div class="app-content-header">
+                <!--begin::Container-->
+                <div class="container-fluid">
+                    <!--begin::Row-->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h3 class="mb-0">Departamentos</h3>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-end">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Departamentos</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <!--end::Row-->
+                </div>
+                <!--end::Container-->
+            </div>
             <div class="app-content">
                 <!--begin::Container-->
                 <div class="container-fluid">
-                    <!-- Info boxes -->
-
-                    <!-- /.row -->
-
                     <!--begin::Row-->
-                    <div class="row mt-5">
-                        <div class="col-lg-5 mx-auto">
+                    <div class="row">
+                        <div class="col-sm-6">
                             <div class="card mb-4">
-                                <div class="card-header border-0">
-
+                                <div class="card-header fw-bold fs-5">
+                                    Listado de departamentos
                                 </div>
+
                                 <div class="card-body">
-                                    <form action="./generar_pdf_departamento.php" method="post" class="d-flex justify-content-center align-items-center flex-column gap-2">
-                                        <h1 class="mb-4 text-primary fw-bold text-center">Listado de departamentos</h1>
-                                        <?php while ($fila = $departamentos->fetch_assoc()): ?>
-                                            <div class="form-check">
+                                    <div class="row">
+                                        <div class="col">
+                                            <form action="./generar_pdf_departamento.php" method="POST">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <select name="departamento" class="form-select" id="">
+                                                            <?php while ($fila = $departamentos->fetch_assoc()): ?>
 
-                                                <input class="form-check-input" type="radio" name="departamento" id="<?php echo $fila["nombreDepartamento"] ?>" value="<?php echo $fila["IDdepartamento"] ?>">
-                                                <label class="form-check-label fs-4" for="<?php echo $fila["nombreDepartamento"] ?>">
-                                                    <?php echo $fila["nombreDepartamento"] ?>
-                                                </label>
+                                                                <option value="<?php echo $fila["IDdepartamento"] ?>"><?php echo $fila["nombreDepartamento"] ?></option>
 
-                                            </div>
-                                        <?php endwhile; ?>
+                                                            <?php endwhile ?>
+                                                        </select>
 
-                                        <button class="btn btn-primary w-100 mt-4 mb-4 fw-bold">Generar PDF</button>
-                                    </form>
+                                                    </div>
+
+                                                    <div class="col-sm-6">
+                                                        <button class="btn btn-success w-100">Generar PDF</button>
+                                                    </div>
+                                                </div>
+
+
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
                         </div>
-                        <!-- /.col-md-6 -->
-
-                        <!-- /.col-md-6 -->
                     </div>
-                    <!--end::Row-->
-
-                    <!--begin::Row-->
-
-                    <!--end::App Content-->
+                </div>
+                <!--end::Row-->
+            </div>
+            <!--end::Container-->
+            <!--end::App Content-->
         </main>
         <!--end::App Main-->
         <!--begin::Footer-->
@@ -402,7 +449,7 @@ $mysql->desconectar();
             <!--begin::Copyright-->
             <strong>
                 Copyright &copy; 2014-2025&nbsp;
-                <a href="https://adminlte.io" class="text-decoration-none">ServiPlus.com</a>.
+                <a href="#" class="text-decoration-none">ServiPlus.com</a>.
             </strong>
             All rights reserved.
             <!--end::Copyright-->
@@ -454,17 +501,12 @@ $mysql->desconectar();
             }
         });
     </script>
-    <!--end::OverlayScrollbars Configure-->
 
-    <!-- OPTIONAL SCRIPTS -->
-
-
-    </script>
     <script src="https://kit.fontawesome.com/4c0cbe7815.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/2.3.4/js/dataTables.js"></script>
-    <script src="./public/js/app.js"></script>
-    <!--end::Script-->
+    <script src="../public/js/graficoDepartamento.js"></script>
+    <script src="../public/js/graficoCargo.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!--end::OverlayScrollbars Configure-->
 </body>
 <!--end::Body-->
 

@@ -4,7 +4,7 @@
     --advertencia: #ffc107;
     --informacion: #007bff;
 
-    --verdeSena: #008000;
+    --verdeSena: #004000;
     --blanco: #ffffff;
     --grisClaro: #f8f9fa;
     --textoPrincipal: #212529;
@@ -15,6 +15,9 @@
     background-color: var(--verdeSena);
 }
 
+.bg-fondo{
+    background-color: var(--grisClaro);
+}
 
 .btn-confirmar{
     background-color: var(--confirmar);

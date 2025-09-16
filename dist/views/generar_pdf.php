@@ -16,7 +16,7 @@ $pdf = new FPDF();
 
 $pdf->AddPage();
 
-$pdf->Image('../assets/img/logoEmpresa.jpg', 10, 5, 30);
+$pdf->Image('../assets/img/logoEmpresaDef.jpg', 10, 5, 30);
 $pdf->SetXY(0,30);
 $pdf->SetFont("Arial", "B", 16);
 $pdf->Cell(0,10, "Listado de empleados", 0,1,'C');
@@ -54,4 +54,4 @@ if($pdf->GetY() > 250){
 $pdf->SetY(265);
 $pdf->SetFont('Arial', 'I', 9);
 $pdf->Cell(0,10, utf8_decode('Elaborado por Daniel F. Ramirez. Fecha de elaboracion: ') . date('d/m/Y H:i'), 0,0, 'C');
-$pdf->Output();
+$pdf->Output('D', "ReporteGeneral");
