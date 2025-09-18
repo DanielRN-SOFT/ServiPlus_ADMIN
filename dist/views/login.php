@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <!--begin::Head-->
@@ -57,6 +56,13 @@
   <!--begin::Required Plugin(AdminLTE)-->
   <link rel="stylesheet" href="../css/adminlte.css" />
   <!--end::Required Plugin(AdminLTE)-->
+
+  <!-- Jquery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!--  JS externo -->
+  <script src="../public/js/login.js"></script>
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -71,22 +77,22 @@
       <div class="card-body login-card-body">
         <p class="login-box-msg">Ingrese sus datos para iniciar sesion</p>
 
-        <form action="../controllers/login.php" method="post" class="">
+        <form action="" method="post" id="frmLogin">
           <div class="mb-3 input-group">
             <span class="input-group-text"><i class="fa-solid fa-id-card"></i></span>
             <div class="form-floating">
-              <input type="number" class="form-control" id="exampleInputEmail1" name="numDocumento" placeholder="1113867890">
-              <label for="">No. de Identificacion</label>
+              <input type="number" class="form-control" id="numDocumento" name="numDocumento" placeholder="1113867890">
+              <label for="numDocumento">No. de Identificacion</label>
             </div>
           </div>
           <div class="mb-3 input-group">
             <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
             <div class="form-floating">
-              <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Ingrese su contraseña">
-              <label for="">Password</label>
+              <input type="password" class="form-control" id="password" name="password" placeholder="Ingrese su contraseña">
+              <label for="password">Password</label>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary w-100 mt-3 fs-5 btn-login">Ingresar <i class="fa-solid fa-right-to-bracket"></i></button>
+          <button type="" class="btn btn-primary w-100 mt-3 fs-5 btn-login">Ingresar <i class="fa-solid fa-right-to-bracket"></i></button>
         </form>
       </div>
       <!-- /.login-card-body -->

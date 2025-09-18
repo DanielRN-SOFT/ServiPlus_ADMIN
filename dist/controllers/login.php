@@ -9,10 +9,10 @@
         $passwordPlano = $_POST["password"];
         $hash = password_hash($passwordPlano, PASSWORD_BCRYPT);
 
-        $resultado = $mysql->efectuarConsulta("SELECT nombre, IDempleado, estado, rol_id, nombre_rol, password FROM empleados JOIN roles ON id_rol = rol_id where numDocumento = $numDocumento");
-        $estadoEmpleados = $mysql->efectuarConsulta("SELECT estado from empleados where numDocumento = $numDocumento");
-        $estado = $estadoEmpleados->fetch_assoc()["estado"];
+        $resultado = $mysql->efectuarConsulta("SELECT nombre, IDempleado, estado, rol_id, nombre_rol, estado,password FROM empleados JOIN roles ON id_rol = rol_id where numDocumento = $numDocumento");
+       
         if ($usuarios = mysqli_fetch_assoc($resultado)) {
+        $estado = $usuarios["estado"];
             if ($estado == "Activo") {
                 if (password_verify($passwordPlano, $usuarios["password"])) {
 
@@ -31,25 +31,34 @@
 
                     $_SESSION['acceso'] = true;
 
-                    header("Location: ../index.php");
+                    // header("Location: ../index.php");
+
+                    echo json_encode([
+                        "success" => true,
+                        "message" => "Inicio de sesion EXITOSAMENTE"
+                    ]);
+                    exit();
                 }else{
-                session_start();
-                $_SESSION["mensaje"] = "Contraseña incorrecta";
-                $_SESSION["pagina"] = "login";
-                header('Location: ../views/error404.php');
+                echo json_encode([
+                    "success" => false,
+                    "message" => "Contraseña incorrecta"
+                ]);
+                exit();
                 }
             } else {
-                session_start();
-                $_SESSION["mensaje"] = "Usuario Inactivo";
-            $_SESSION["pagina"] = "login";
-                header('Location: ../views/error404.php');
+            echo json_encode([
+                "success" => false,
+                "message" => "Usuario INACTIVO"
+            ]);
+            exit();
              
             }
         } else {
-        session_start();
-        $_SESSION["mensaje"] = "Usuario no encontrado";
-        $_SESSION["pagina"] = "login";
-        header('Location: ../views/error404.php');
+        echo json_encode([
+            "success" => false,
+            "message" => "Usuario no ENCONTRADO"
+        ]);
+        exit();
         }
     } else {
         header("Location: ../views/login.php");
