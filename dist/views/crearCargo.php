@@ -10,8 +10,8 @@
 
 <body>
     <form action="" id="frmCrearCargo" method="post">
-        <label class="form-label" for="nombreDepartamento">Nombre:</label>
-        <input class="form-control" id="nombreDepartamento" name="nombreCargo" type="text">
+        <label class="form-label" for="nombreCargo">Nombre:</label>
+        <input class="form-control" id="nombreCargo" name="nombreCargo" type="text">
     </form>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>

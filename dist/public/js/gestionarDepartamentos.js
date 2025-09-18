@@ -100,6 +100,7 @@ $(document).on("click", ".btn-eliminar", function(){
     Swal.fire({
         title: '<p class="text-danger"> Eliminar departamento <p>',
         html: `¿Esta seguro de realizar esta accion?<br> <strong>Nombre: </strong> ${nombre}`,
+        icon: "warning",
         showCancelButton: true,
         confirmButtonText: "Si, Eliminar departamento",
         cancelButtonText: "Cancelar",
@@ -139,6 +140,7 @@ $(document).on("click", ".btn-reintegrar", function(){
     Swal.fire({
         title: '<p class="text-success"> Reintegrar departamento </p>',
         html: `¿Desea reintegrar este departamento? <br> <strong> Nombre:</strong> ${nombre}`,
+        icon: "warning",
         showCancelButton: true,
         confirmButtonText: "Si, reintegar empleado",
         cancelButtonText: "Cancelar",

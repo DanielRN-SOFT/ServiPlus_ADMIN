@@ -106,7 +106,7 @@ $mysql->desconectar();
   <!-- SweetAlert2 -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- Script interno -->
-  <script src="../public/js/gestionarDepartamentos.js"></script>
+  <script src="../public/js/gestionarCargos.js"></script>
 </head>
 <!--end::Head-->
 <!--begin::Body-->
