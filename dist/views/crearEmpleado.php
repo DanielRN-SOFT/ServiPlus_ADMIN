@@ -1,11 +1,19 @@
 <?php
-require_once '../controllers/crearEmpleado.php';
+require_once "../model/MYSQL.php";
 session_start();
 
 if ($_SESSION['acceso'] == NULL || $_SESSION["acceso"] == false) {
     header("Location: ./login.php");
     exit();
 }
+$mysql = new MySQL();
+
+$mysql->conectar();
+
+$cargos = $mysql->efectuarConsulta("SELECT * FROM cargos");
+$departamentos = $mysql->efectuarConsulta("SELECT * FROM departamentos");
+$roles = $mysql->efectuarConsulta("SELECT * FROM roles");
+
 ?>
 
 
@@ -91,7 +99,7 @@ if ($_SESSION['acceso'] == NULL || $_SESSION["acceso"] == false) {
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="numDocumento" class="form-label">Numero de documento:</label>
-                            <input type="number" class="form-control" id="numDocumento" name="NumDocumento" required>
+                            <input type="number" class="form-control" id="numDocumento" name="numDocumento" required>
                         </div>
                     </div>
                 </div>
@@ -128,7 +136,7 @@ if ($_SESSION['acceso'] == NULL || $_SESSION["acceso"] == false) {
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="fecha" class="form-label">Fecha de ingreso:</label>
-                            <input type="date" class="form-control" id="fecha" name="fechaIngreso" value="27/08/2025" required>
+                            <input type="date" class="form-control" min="" id="fecha" name="fechaIngreso" value="27/08/2025" required>
                         </div>
                     </div>
                 </div>
@@ -181,6 +189,11 @@ if ($_SESSION['acceso'] == NULL || $_SESSION["acceso"] == false) {
         </div>
     </div>
 
+    </script>
+    <script>
+        const fechaActual = new Date().toISOString().split("T")[0];
+        const inputFecha = document.getElementById("fechaIngreso");
+        inputFecha.setAttribute('max', fechaActual)
     </script>
     <script src="https://kit.fontawesome.com/4c0cbe7815.js" crossorigin="anonymous"></script>
 

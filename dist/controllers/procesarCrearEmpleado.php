@@ -9,7 +9,7 @@ header('Content-Type:application/json');
 if($_SERVER["REQUEST_METHOD"] === "POST"){
     if (
         isset($_POST["nombre"]) && !empty($_POST["nombre"])
-        && isset($_POST["NumDocumento"]) && !empty($_POST["NumDocumento"])
+        && isset($_POST["numDocumento"]) && !empty($_POST["numDocumento"])
         && isset($_POST["cargo"]) && !empty($_POST["cargo"])
         && isset($_POST["departamento"]) && !empty($_POST["departamento"])
         && isset($_POST["fechaIngreso"]) && !empty($_POST["fechaIngreso"])
@@ -20,11 +20,11 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
         && isset($_POST["password"]) && !empty($_POST["password"])
     ) {
         $nombre = filter_var(trim($_POST["nombre"]), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $numDocumento = filter_var(trim($_POST["NumDocumento"]), FILTER_SANITIZE_NUMBER_INT);
+        $numDocumento = filter_var(trim($_POST["numDocumento"]), FILTER_SANITIZE_NUMBER_INT);
         $cargo = filter_var(trim($_POST["cargo"]), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $departamento = filter_var(trim($_POST["departamento"]), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $fechaIngreso = filter_var(trim($_POST["fechaIngreso"]), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $salarioBase = filter_var(trim($_POST["salarioBase"]), FILTER_SANITIZE_NUMBER_FLOAT);
+        $salarioBase = filter_var(trim($_POST["salarioBase"]), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
         $telefono = filter_var(trim($_POST["telefono"]), FILTER_SANITIZE_NUMBER_INT);
         $correoElectronico = filter_var(trim($_POST["correoElectronico"]), FILTER_SANITIZE_EMAIL);
         $passwordPlano = $_POST["password"];
@@ -40,6 +40,16 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
             ]);
             exit();
         }
+
+        if(!filter_var($correoElectronico, FILTER_VALIDATE_EMAIL)){
+            echo json_encode([
+                "success" => false,
+                "message" => "Ingrese un correo electronico valido"
+            ]);
+            exit();
+        }
+
+    
 
         if(mysqli_num_rows($validacionCorreo) > 0){
             echo json_encode([
@@ -84,6 +94,30 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
         
        
     }else{
+        if (!filter_var($_POST["numDocumento"], FILTER_VALIDATE_INT)) {
+            echo json_encode([
+                "success" => false,
+                "message" => "Ingrese un numero de documento valido"
+            ]);
+            exit();
+        }
+        if (!filter_var($_POST["salarioBase"], FILTER_VALIDATE_FLOAT)) {
+            echo json_encode([
+                "success" => false,
+                "message" => "Ingrese un salario valido"
+            ]);
+            exit();
+        }
+
+ 
+        if (!filter_var($_POST["telefono"], FILTER_VALIDATE_INT)) {
+            echo json_encode([
+                "success" => false,
+                "message" => "Ingrese un numero de telefono valido"
+            ]);
+            exit();
+        }
+
         echo json_encode([
             "success" => false,
             "message" => "Todos los campos son obligatorios"

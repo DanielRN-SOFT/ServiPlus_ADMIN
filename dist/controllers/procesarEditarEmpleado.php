@@ -41,6 +41,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         }
 
+        if (!filter_var($correoElectronico, FILTER_VALIDATE_EMAIL)) {
+            echo json_encode([
+                "success" => false,
+                "message" => "Ingrese un correo electronico valido"
+            ]);
+            exit();
+        }
+
+
         if (mysqli_num_rows($validacionCorreo) > 0) {
             echo json_encode([
                 "success" => false,
@@ -124,6 +133,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      
         
     } else {
+        if (!filter_var($_POST["numDocumento"], FILTER_VALIDATE_INT)) {
+            echo json_encode([
+                "success" => false,
+                "message" => "Ingrese un numero de documento valido"
+            ]);
+            exit();
+        }
+        if (!filter_var($_POST["salarioBase"], FILTER_VALIDATE_FLOAT)) {
+            echo json_encode([
+                "success" => false,
+                "message" => "Ingrese un salario valido"
+            ]);
+            exit();
+        }
+
+
+        if (!filter_var($_POST["telefono"], FILTER_VALIDATE_INT)) {
+            echo json_encode([
+                "success" => false,
+                "message" => "Ingrese un numero de telefono valido"
+            ]);
+            exit();
+        }
+
         echo json_encode([
             "success" => false,
             "message" => "Todos los campos son obligatorios"

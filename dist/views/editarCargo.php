@@ -1,6 +1,12 @@
 <?php
 
 require_once '../model/MYSQL.php';
+
+session_start();
+if ($_SESSION["acceso"] == false && $_SESSION["acceso"] == null) {
+    header("Location: ./login.php");
+}
+
 $mysql = new MySQL();
 $mysql->conectar();
 

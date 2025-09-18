@@ -3,6 +3,10 @@ require_once '../model/MYSQL.php';
 
 $mysql = new MySQL();
 $mysql->conectar();
+session_start();
+if ($_SESSION["acceso"] == false && $_SESSION["acceso"] == null) {
+    header("Location: ./login.php");
+}
 
 $id = $_GET["id"];
 

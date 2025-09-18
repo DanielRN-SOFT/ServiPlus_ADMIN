@@ -22,9 +22,14 @@ $(document).ready(function(){
                 preConfirm: () =>{
                     // Captura el formulario insertado en el SweetAlert
                    const form = document.getElementById("frmCrearEmpleado");
+                       if (!form.checkValidity()) {
+                         form.reportValidity(); // Muestra los mensajes nativos del navegador
+                         return false; // SweetAlert no cierra
+                       }
 
                    // Crea un objeto FormData con todos los campos del formulario (incluye archivos)
                    const formData = new FormData(form);
+                
 
                       // Envía los datos del formulario al backend (procesarCrearEmpleado.php)
                       // 👇 devolvemos la promesa de $.ajax
@@ -202,3 +207,23 @@ $(document).on("click", ".btn-reintegrar", function(){
             }
          })
 })
+
+
+function validarCorreo(email){
+    const arrobaIndex = email.indexOf("@");
+    const puntoIndex = email.lastIndexOf('.');
+
+    if(arrobaIndex < 1 || puntoIndex === -1){
+        return false;
+    }
+
+    if((puntoIndex - arrobaIndex) < 2){
+        return false;
+    }
+
+    if(puntoIndex === email.length -1){
+        return false;
+    }
+
+    return true
+}

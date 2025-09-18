@@ -86,7 +86,7 @@
               <label for="">Password</label>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary w-100 mt-3 fs-5">Ingresar <i class="fa-solid fa-right-to-bracket"></i></button>
+          <button type="submit" class="btn btn-primary w-100 mt-3 fs-5 btn-login">Ingresar <i class="fa-solid fa-right-to-bracket"></i></button>
         </form>
       </div>
       <!-- /.login-card-body -->
