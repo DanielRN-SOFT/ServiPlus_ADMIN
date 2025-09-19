@@ -18,36 +18,14 @@ $mysql->desconectar();
 
 ?>
 
-
 <!doctype html>
 <html lang="en">
 <!--begin::Head-->
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AdminLTE 4 | Ver departamentos</title>
-
-  <!--begin::Accessibility Meta Tags-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-
-  <meta name="theme-color" content="#007bff" media="(prefers-color-scheme: light)" />
-
-  <!--end::Accessibility Meta Tags-->
-
-  <!--begin::Primary Meta Tags-->
-  <meta name="title" content="AdminLTE 4 | Fixed Sidebar" />
-  <meta name="author" content="ColorlibHQ" />
-  <meta
-    name="description"
-    content="AdminLTE is a Free Bootstrap 5 Admin Dashboard, 30 example pages using Vanilla JS. Fully accessible with WCAG 2.1 AA compliance." />
-  <meta
-    name="keywords"
-    content="bootstrap 5, bootstrap, bootstrap 5 admin dashboard, bootstrap 5 dashboard, bootstrap 5 charts, bootstrap 5 calendar, bootstrap 5 datepicker, bootstrap 5 tables, bootstrap 5 datatable, vanilla js datatable, colorlibhq, colorlibhq dashboard, colorlibhq admin dashboard, accessible admin panel, WCAG compliant" />
-  <!--end::Primary Meta Tags-->
-
-  <!--begin::Accessibility Features-->
-  <!-- Skip links will be dynamically added by accessibility.js -->
-  <meta name="supported-color-schemes" content="light dark" />
   <link rel="preload" href="../css/adminlte.css" as="style" />
   <!--end::Accessibility Features-->
 
@@ -90,27 +68,15 @@ $mysql->desconectar();
   <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.5.0/css/rowReorder.dataTables.css" />
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.6/css/responsive.dataTables.css" />
 
-  <!-- Jquery -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <!-- SweetAlert2 -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="../assets/css/styles.css">
 
   <!-- Datatables -->
-
   <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css" />
   <link rel="stylesheet" href="https://cdn.datatables.net/columncontrol/1.1.0/css/columnControl.dataTables.css" />
   <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/2.1.1/css/colReorder.dataTables.css" />
-
   <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.5.0/css/rowReorder.dataTables.css" />
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.6/css/responsive.dataTables.css" />
 
-  <!-- Jquery -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <!-- SweetAlert2 -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <!-- Script interno -->
-  <script src="../public/js/gestionarDepartamentos.js"></script>
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -260,9 +226,6 @@ $mysql->desconectar();
                 </ul>
               </li>
 
-
-
-
               <li class="nav-header">GRAFICOS</li>
               <li class="nav-item">
                 <a href="./graficoBarras.php" class="nav-link">
@@ -286,7 +249,6 @@ $mysql->desconectar();
       <!--end::Sidebar Wrapper-->
     </aside>
     <!--end::Sidebar-->
-
     <!--begin::App Main-->
     <main class="app-main">
       <!--begin::App Content Header-->
@@ -305,18 +267,13 @@ $mysql->desconectar();
               </ol>
             </div>
           </div>
-
           <?php if ($rol == 1) { ?>
-
             <div class="row my-2">
               <div class="col-sm-12">
                 <button id="crearDepartamento" class="btn btn-primary">Crear departamento</button>
               </div>
             </div>
-
-
           <?php } ?>
-
           <!--end::Row-->
         </div>
         <!--end::Container-->
@@ -333,7 +290,6 @@ $mysql->desconectar();
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title">Lista de departamentos</h3>
-
                   <div class="card-tools">
                     <button
                       type="button"
@@ -356,7 +312,6 @@ $mysql->desconectar();
                   <table class="table table-striped table-bordered display" id="tblEmpleados">
                     <thead>
                       <tr>
-
                         <th>Nombre</th>
                         <th>Estado</th>
                         <?php if ($rol == 1) { ?>
@@ -367,17 +322,14 @@ $mysql->desconectar();
                     <tbody>
                       <tr>
                         <?php while ($fila = $departamentos->fetch_assoc()): ?>
-
                           <td><?php echo $fila["nombreDepartamento"] ?></td>
                           <td><?php echo $fila["estadoDepartamento"] ?></td>
-
                           <?php
                           if ($rol == 1) { ?>
                             <td>
                               <button class="btn btn-outline-warning mx-1 btn-editar" data-id="<?php echo $fila["IDdepartamento"] ?>"><i class="fa-solid fa-pen-to-square"></i></button>
                               <?php
                               if ($fila["estadoDepartamento"] == "Activo") { ?>
-
                                 <button class="btn btn-outline-danger btn-eliminar"
                                   data-id="<?php echo $fila['IDdepartamento']; ?>"
                                   data-nombre="<?php echo $fila["nombreDepartamento"] ?>">
@@ -385,12 +337,8 @@ $mysql->desconectar();
                                 </button>
                               <?php } else { ?>
                                 <button class="btn btn-outline-success btn-reintegrar" data-id="<?php echo $fila["IDdepartamento"] ?>" data-nombre="<?php echo $fila["nombreDepartamento"] ?>"><i class=" fa-solid fa-check"></i></button>
-
                               <?php } ?>
-
                             </td>
-
-
                           <?php } ?>
                       </tr>
                     <?php endwhile; ?>
@@ -475,8 +423,8 @@ $mysql->desconectar();
   <!--end::Script-->
 
   <script src="https://kit.fontawesome.com/4c0cbe7815.js" crossorigin="anonymous"></script>
-
   <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  <!-- DataTables -->
   <script src="https://cdn.datatables.net/2.3.4/js/dataTables.js"></script>
   <script src="https://cdn.datatables.net/columncontrol/1.1.0/js/dataTables.columnControl.js"></script>
   <script src="https://cdn.datatables.net/columncontrol/1.1.0/js/columnControl.dataTables.js"></script>
@@ -490,6 +438,11 @@ $mysql->desconectar();
   <script src="https://cdn.datatables.net/responsive/3.0.6/js/responsive.dataTables.js"></script>
 
   <script src="../public/js/datatable.js"></script>
+  <!-- DataTables -->
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Script interno -->
+  <script src="../public/js/gestionarDepartamentos.js"></script>
 </body>
 <!--end::Body-->
 

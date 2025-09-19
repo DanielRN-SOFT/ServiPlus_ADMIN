@@ -29,39 +29,15 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
 
 ?>
 
-
-
 <!doctype html>
 <html lang="en">
 <!--begin::Head-->
-
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AdminLTE | Ver empleados</title>
-
-  <!--begin::Accessibility Meta Tags-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="theme-color" content="#007bff" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)" />
-  <!--end::Accessibility Meta Tags-->
-
-  <!--begin::Primary Meta Tags-->
-  <meta name="title" content="AdminLTE | Dashboard v2" />
-  <meta name="author" content="ColorlibHQ" />
-  <meta
-    name="description"
-    content="AdminLTE is a Free Bootstrap 5 Admin Dashboard, 30 example pages using Vanilla JS. Fully accessible with WCAG 2.1 AA compliance." />
-  <meta
-    name="keywords"
-    content="bootstrap 5, bootstrap, bootstrap 5 admin dashboard, bootstrap 5 dashboard, bootstrap 5 charts, bootstrap 5 calendar, bootstrap 5 datepicker, bootstrap 5 tables, bootstrap 5 datatable, vanilla js datatable, colorlibhq, colorlibhq dashboard, colorlibhq admin dashboard, accessible admin panel, WCAG compliant" />
-  <!--end::Primary Meta Tags-->
-
-  <!--begin::Accessibility Features-->
-  <!-- Skip links will be dynamically added by accessibility.js -->
-  <meta name="supported-color-schemes" content="light dark" />
   <link rel="preload" href="./css/adminlte.css" as="style" />
   <!--end::Accessibility Features-->
-
   <!--begin::Fonts-->
   <link
     rel="stylesheet"
@@ -100,14 +76,6 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
 
   <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.5.0/css/rowReorder.dataTables.css" />
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.6/css/responsive.dataTables.css" />
-
-  <!-- Jquery -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <!-- SweetAlert2 -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <!--  JS externo -->
-  <script src="./public/js/gestionarEmpleados.js"></script>
-
 </head>
 
 <body class="layout-fixed sidebar-expand-lg sidebar-open bg-body-tertiary">
@@ -291,14 +259,12 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
               </ol>
             </div>
           </div>
-
           <?php if ($rol == 1) { ?>
             <div class="row my-2">
               <div class="col-sm-6">
                 <button class="btn btn-primary" id="abrirCrearFrm">Crear nuevo empleado</button>
               </div>
             </div>
-
           <?php } ?>
           <!--end::Row-->
         </div>
@@ -307,14 +273,12 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
       <div class="app-content">
         <!--begin::Container-->
         <div class="container-fluid">
-
           <!--begin::Row-->
           <div class="row">
             <div class="col-md-12">
               <div class="card mb-4">
                 <div class="card-header">
                   <h5 class="card-title fw-bold fs-5">Lista de empleados</h5>
-
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse">
                       <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
@@ -327,7 +291,6 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
                         data-bs-toggle="dropdown">
                         <i class="bi bi-wrench"></i>
                       </button>
-
                     </div>
                     <button type="button" class="btn btn-tool" data-lte-toggle="card-remove">
                       <i class="bi bi-x-lg"></i>
@@ -343,33 +306,27 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
                         <table class="table table-striped table-bordered display" id="tblEmpleados">
                           <thead class="text-center">
                             <tr class="bg bg-dark">
-
                               <th scope="col" class="text-dark">Imagen</th>
                               <th scope="col" class="text-dark">Nombre</th>
                               <th scope="col" class="text-dark">No. Documento</th>
                               <th scope="col" class="text-dark">Departamento</th>
-
                               <th scope="col" class="text-dark">Cargo</th>
                               <?php if ($rol == 1) { ?>
                                 <th scope="col" class="text-dark">Rol</th>
                               <?php } ?>
-
                               <th scope="col" class="text-dark"> Ingreso</th>
                               <th scope="col" class="text-dark">Salario</th>
                               <th scope="col" class="text-dark">Estado</th>
                               <th scope="col" class="text-dark">Telefono</th>
                               <th scope="col" class="text-dark">E-mail</th>
-
                               <?php if ($rol == 1) { ?>
                                 <th scope="col" class="text-dark">Acciones</th>
                               <?php } ?>
-
                             </tr>
                           </thead>
                           <tbody>
                             <?php while ($fila = $empleados->fetch_assoc()): ?>
                               <tr>
-
                                 <td class="text-center">
                                   <img src=" <?php echo $fila["imagen"] ?>" width="50" alt="">
                                 </td>
@@ -382,13 +339,10 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
                                 <td>
                                   <?php echo $fila["nombreDepartamento"] ?>
                                 </td>
-
                                 <td>
                                   <?php echo $fila["nombreCargo"] ?>
                                 </td>
-
                                 <?php if ($rol == 1) { ?>
-
                                   <td>
                                     <?php echo $fila["nombre_rol"] ?>
                                   </td>
@@ -408,43 +362,28 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
                                 <td>
                                   <?php echo $fila["correoElectronico"] ?>
                                 </td>
-
                                 <?php
                                 if ($rol == 1) { ?>
                                   <td>
                                     <button class="btn btn-outline-warning mx-1 btn-editar" data-id="<?php echo $fila["IDempleado"] ?>"><i class="fa-solid fa-pen-to-square"></i></button>
                                     <?php
                                     if ($fila["estado"] == "Activo") { ?>
-
                                       <button class="btn btn-outline-danger btn-eliminar" data-nombre="<?php echo $fila['nombre']; ?>" data-num="<?php echo $fila["numDocumento"] ?>"
                                         data-id="<?php echo $fila['IDempleado']; ?>">
                                         <i class="fa-solid fa-trash"></i>
                                       </button>
                                     <?php } else { ?>
                                       <button class="btn btn-outline-success btn-reintegrar" data-nombre="<?php echo $fila['nombre']; ?>" data-id="<?php echo $fila["IDempleado"] ?>" data-num="<?php echo $fila['numDocumento']; ?>"><i class="fa-solid fa-check"></i></button>
-
                                     <?php } ?>
-
-
-
                                   </td>
-
-
                                 <?php } ?>
-
                               </tr>
-
-
-
-
                             <?php endwhile; ?>
                           </tbody>
-
                         </table>
                       </div>
                     </div>
                     <!-- /.col -->
-
                     <!-- /.col -->
                   </div>
                   <!--end::Row-->
@@ -459,9 +398,7 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
             <!-- /.col -->
           </div>
           <!--end::Row-->
-
           <!--begin::Row-->
-
           <!--end::App Content-->
     </main>
     <!--end::App Main-->
@@ -532,7 +469,7 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
 
   </script>
   <script src="https://kit.fontawesome.com/4c0cbe7815.js" crossorigin="anonymous"></script>
-
+  <!-- DataTables -->
   <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
   <script src="https://cdn.datatables.net/2.3.4/js/dataTables.js"></script>
   <script src="https://cdn.datatables.net/columncontrol/1.1.0/js/dataTables.columnControl.js"></script>
@@ -547,6 +484,13 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
   <script src="https://cdn.datatables.net/responsive/3.0.6/js/responsive.dataTables.js"></script>
 
   <script src="./public/js/datatable.js"></script>
+
+  <!-- Fin DataTables -->
+
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!--  JS externo -->
+  <script src="./public/js/gestionarEmpleados.js"></script>
   <!--end::Script-->
 </body>
 <!--end::Body-->

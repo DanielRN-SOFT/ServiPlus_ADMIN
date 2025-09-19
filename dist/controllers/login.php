@@ -15,24 +15,16 @@
         $estado = $usuarios["estado"];
             if ($estado == "Activo") {
                 if (password_verify($passwordPlano, $usuarios["password"])) {
-
                     session_start();
-
                     require_once '../model/usuarios.php';
-
                     $usuario = new usuarios();
                     $usuario->setNombre($usuarios["nombre"]);
                     $usuario->setId($usuarios['IDempleado']);
                     $usuario->setRol($usuarios['rol_id']);
                     $usuario->setNombreRol($usuarios['nombre_rol']);
-                    
-
                     $_SESSION['usuario'] = $usuario;
-
                     $_SESSION['acceso'] = true;
-
                     // header("Location: ../index.php");
-
                     echo json_encode([
                         "success" => true,
                         "message" => "Inicio de sesion EXITOSAMENTE"

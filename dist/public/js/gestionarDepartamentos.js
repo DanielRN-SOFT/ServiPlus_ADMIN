@@ -6,7 +6,7 @@ $(document).ready(function(){
             type: "GET",
             success: function(frmHTML){
                 Swal.fire({
-                    title: "Crear un nuevo <br> departamento",
+                    title: '<span class="text-primary">Crear un nuevo <br> departamento</span>',
                     html: frmHTML,
                     showCancelButton: true,
                     confirmButtonText: "Agregar",
