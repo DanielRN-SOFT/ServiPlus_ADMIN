@@ -23,8 +23,8 @@ $rol = $usuarios->getRol();
 
   <!--begin::Accessibility Meta Tags-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  
-  <link rel="preload" href="./css/adminlte.css" as="style" />
+
+  <link rel="preload" href="../css/adminlte.css" as="style" />
   <!--end::Accessibility Features-->
 
   <!--begin::Fonts-->
@@ -81,35 +81,17 @@ $rol = $usuarios->getRol();
           <li class="nav-item d-none d-md-block">
             <a href="../index.php" class="nav-link">Home</a>
           </li>
-         
+
         </ul>
         <!--end::Start Navbar Links-->
 
         <!--begin::End Navbar Links-->
         <ul class="navbar-nav ms-auto">
-          <!--begin::Navbar Search-->
           <li class="nav-item">
-            <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-              <i class="bi bi-search"></i>
+            <a href="./controllers/logout.php" class="btn nav-link bg-danger rounded-5 text-light">
+              <p> <i class="fa-solid fa-right-from-bracket"></i> Log out</p>
             </a>
           </li>
-          <!--end::Navbar Search-->
-
-          <!--begin::Messages Dropdown Menu-->
-
-          <!--end::Messages Dropdown Menu-->
-          <!--begin::Fullscreen Toggle-->
-          <li class="nav-item">
-            <a class="nav-link" href="#" data-lte-toggle="fullscreen">
-              <i data-lte-icon="maximize" class="bi bi-arrows-fullscreen"></i>
-              <i data-lte-icon="minimize" class="bi bi-fullscreen-exit" style="display: none"></i>
-            </a>
-          </li>
-          <!--end::Fullscreen Toggle-->
-
-          <!--begin::User Menu Dropdown-->
-
-          <!--end::User Menu Dropdown-->
         </ul>
         <!--end::End Navbar Links-->
       </div>
@@ -214,17 +196,11 @@ $rol = $usuarios->getRol();
             <li class="nav-item">
               <a href="./graficoBarras.php" class="nav-link active">
                 <i class="fa-solid fa-signal"></i>
-                <p>Grafico de barras</p>
+                <p>Empleados</p>
               </a>
             </li>
 
-            <li class="nav-header">CERRAR SESION</li>
-            <li class="nav-item">
-              <a href="../controllers/logout.php" class="nav-link">
-                <i class="fa-solid fa-right-from-bracket"></i>
-                <p>Log out</p>
-              </a>
-            </li>
+
           </ul>
           <!--end::Sidebar Menu-->
         </nav>
@@ -243,7 +219,7 @@ $rol = $usuarios->getRol();
             <div class="col-sm-6">
               <h3 class="mb-0">Graficos de barras</h3>
             </div>
-           
+
           </div>
           <!--end::Row-->
         </div>
@@ -253,15 +229,13 @@ $rol = $usuarios->getRol();
         <!--begin::Container-->
         <div class="container-fluid">
           <!--begin::Row-->
-          <div class="row">
+          <div class="row mt-3">
             <div class="col-lg-6">
               <div class="card mb-4">
                 <div class="card-header border-0">
                   <div class="d-flex justify-content-between">
                     <h3 class="card-title">Cantidad de empleados por departamento</h3>
-                    <a
-                      href="javascript:void(0);"
-                      class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">View Report</a>
+
                   </div>
                 </div>
                 <div class="card-body">
@@ -290,9 +264,7 @@ $rol = $usuarios->getRol();
                 <div class="card-header border-0">
                   <div class="d-flex justify-content-between">
                     <h3 class="card-title">Cantidad de personas por cargo</h3>
-                    <a
-                      href="javascript:void(0);"
-                      class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">View Report</a>
+
                   </div>
                 </div>
                 <div class="card-body">

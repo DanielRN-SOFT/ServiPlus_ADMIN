@@ -11,8 +11,8 @@ if ($_SESSION['acceso'] == NULL || $_SESSION["acceso"] == false) {
 
 $id = intval($_GET['id']);
 $empleados = $mysql->efectuarConsulta("SELECT * FROM empleados WHERE IDempleado = '$id'");
-$cargos = $mysql->efectuarConsulta("SELECT * FROM cargos");
-$departamentos = $mysql->efectuarConsulta("SELECT * FROM departamentos");
+$cargos = $mysql->efectuarConsulta("SELECT * FROM cargos WHERE estadoCargo = 'Activo'");
+$departamentos = $mysql->efectuarConsulta("SELECT * FROM departamentos WHERE estadoDepartamento = 'Activo'");
 $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
 
 $mysql->desconectar();
@@ -207,11 +207,11 @@ $mysql->desconectar();
                 <div class="row mb-4">
                     <div class="col-md-6">
                         <label for="oldPassword" class="form-label">Contraseña antigua:</label>
-                        <input type="text" class="form-control" id="oldPassword" name="oldPassword" value="">
+                        <input type="password" class="form-control" id="oldPassword" name="oldPassword" value="">
                     </div>
                     <div class="col-md-6">
                         <label for="newPassword" class="form-label">Contraseña nueva:</label>
-                        <input type="text" class="form-control" id="oldPassword" name="newPassword" value="">
+                        <input type="password" class="form-control" id="oldPassword" name="newPassword" value="">
                     </div>
                 </div>
             </form>

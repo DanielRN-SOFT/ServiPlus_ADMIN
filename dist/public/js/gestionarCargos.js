@@ -6,7 +6,7 @@ $(document).ready(function(){
             type: "GET",
             success: function(frmHTML){
                 Swal.fire({
-                    title: '<p class="text-primary"> Crear cargo </p>',
+                    title: '<span class="text-primary"> Crear cargo </span>',
                     html: frmHTML,
                     showCancelButton: true,
                     confirmButtonText: "Agregar",
@@ -57,7 +57,7 @@ $(document).on("click", ".btn-editar", function(){
     data: {id: IDcargo},
     success: function(frmHTML){
         Swal.fire({
-            title: '<p class = "text-warning"> Editar empleado </p>',
+            title: '<span class = "text-warning"> Editar cargo </span>',
             html: frmHTML,
             showCancelButton: true,
             confirmButtonText: "Guardar",

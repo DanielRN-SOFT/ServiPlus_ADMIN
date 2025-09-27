@@ -25,8 +25,8 @@ $mysql->desconectar();
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>AdminLTE | Grafico de barras</title>
-    <link rel="preload" href="./css/adminlte.css" as="style" />
+    <title>ServiPlus | Listado de departamentos</title>
+    <link rel="preload" href="../css/adminlte.css" as="style" />
     <!--end::Accessibility Features-->
 
     <!--begin::Fonts-->
@@ -65,7 +65,6 @@ $mysql->desconectar();
         integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0="
         crossorigin="anonymous" />
 
-    <script src="../public/js/pdf.js"></script>
 </head>
 
 <body class="layout-fixed sidebar-expand-lg sidebar-open bg-body-tertiary">
@@ -85,31 +84,17 @@ $mysql->desconectar();
                     <li class="nav-item d-none d-md-block">
                         <a href="../index.php" class="nav-link">Home</a>
                     </li>
-                   
+
                 </ul>
                 <!--end::Start Navbar Links-->
 
                 <!--begin::End Navbar Links-->
                 <ul class="navbar-nav ms-auto">
-                    <!--begin::Navbar Search-->
                     <li class="nav-item">
-                        <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-                            <i class="bi bi-search"></i>
+                        <a href="./controllers/logout.php" class="btn nav-link bg-danger rounded-5 text-light">
+                            <p> <i class="fa-solid fa-right-from-bracket"></i> Log out</p>
                         </a>
                     </li>
-                    <!--end::Navbar Search-->
-                    <!--begin::Fullscreen Toggle-->
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" data-lte-toggle="fullscreen">
-                            <i data-lte-icon="maximize" class="bi bi-arrows-fullscreen"></i>
-                            <i data-lte-icon="minimize" class="bi bi-fullscreen-exit" style="display: none"></i>
-                        </a>
-                    </li>
-                    <!--end::Fullscreen Toggle-->
-
-                    <!--begin::User Menu Dropdown-->
-
-                    <!--end::User Menu Dropdown-->
                 </ul>
                 <!--end::End Navbar Links-->
             </div>
@@ -214,15 +199,7 @@ $mysql->desconectar();
                         <li class="nav-item">
                             <a href="./graficoBarras.php" class="nav-link">
                                 <i class="fa-solid fa-signal"></i>
-                                <p>Grafico de barras</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-header">CERRAR SESION</li>
-                        <li class="nav-item">
-                            <a href="../controllers/logout.php" class="nav-link">
-                                <i class="fa-solid fa-right-from-bracket"></i>
-                                <p>Log out</p>
+                                <p>Empleados</p>
                             </a>
                         </li>
                     </ul>
@@ -243,7 +220,7 @@ $mysql->desconectar();
                         <div class="col-sm-6">
                             <h3 class="mb-0">Departamentos</h3>
                         </div>
-                       
+
                     </div>
                     <!--end::Row-->
                 </div>
@@ -359,9 +336,7 @@ $mysql->desconectar();
     </script>
 
     <script src="https://kit.fontawesome.com/4c0cbe7815.js" crossorigin="anonymous"></script>
-    <script src="../public/js/graficoDepartamento.js"></script>
-    <script src="../public/js/graficoCargo.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <!--end::OverlayScrollbars Configure-->
 </body>
 <!--end::Body-->

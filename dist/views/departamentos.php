@@ -25,7 +25,7 @@ $mysql->desconectar();
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 4 | Ver departamentos</title>
+  <title>ServiPlus | Ver departamentos</title>
   <link rel="preload" href="../css/adminlte.css" as="style" />
   <!--end::Accessibility Features-->
 
@@ -57,7 +57,7 @@ $mysql->desconectar();
   <link rel="stylesheet" href="../css/adminlte.css" />
   <!--end::Required Plugin(AdminLTE)-->
 
-  <link rel="stylesheet" href="./assets/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/styles.css">
 
   <!-- Datatables -->
 
@@ -98,35 +98,17 @@ $mysql->desconectar();
           <li class="nav-item d-none d-md-block">
             <a href="../index.php" class="nav-link">Home</a>
           </li>
-      
+
         </ul>
         <!--end::Start Navbar Links-->
 
         <!--begin::End Navbar Links-->
         <ul class="navbar-nav ms-auto">
-          <!--begin::Navbar Search-->
           <li class="nav-item">
-            <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-              <i class="bi bi-search"></i>
+            <a href="./controllers/logout.php" class="btn nav-link bg-danger rounded-5 text-light">
+              <p> <i class="fa-solid fa-right-from-bracket"></i> Log out</p>
             </a>
           </li>
-          <!--end::Navbar Search-->
-
-          <!--begin::Messages Dropdown Menu-->
-
-          <!--end::Messages Dropdown Menu-->
-          <!--begin::Fullscreen Toggle-->
-          <li class="nav-item">
-            <a class="nav-link" href="#" data-lte-toggle="fullscreen">
-              <i data-lte-icon="maximize" class="bi bi-arrows-fullscreen"></i>
-              <i data-lte-icon="minimize" class="bi bi-fullscreen-exit" style="display: none"></i>
-            </a>
-          </li>
-          <!--end::Fullscreen Toggle-->
-
-          <!--begin::User Menu Dropdown-->
-
-          <!--end::User Menu Dropdown-->
         </ul>
         <!--end::End Navbar Links-->
       </div>
@@ -228,18 +210,12 @@ $mysql->desconectar();
               <li class="nav-item">
                 <a href="./graficoBarras.php" class="nav-link">
                   <i class="fa-solid fa-signal"></i>
-                  <p>Grafico de barras</p>
+                  <p>Empleados</p>
                 </a>
               </li>
 
             <?php } ?>
-            <li class="nav-header">CERRAR SESION</li>
-            <li class="nav-item">
-              <a href="../controllers/logout.php" class="nav-link">
-                <i class="fa-solid fa-right-from-bracket"></i>
-                <p>Log out</p>
-              </a>
-            </li>
+
           </ul>
           <!--end::Sidebar Menu-->
         </nav>
@@ -258,7 +234,7 @@ $mysql->desconectar();
             <div class="col-sm-6">
               <h3 class="mb-0 fw-bold">Departamentos</h3>
             </div>
-            
+
           </div>
           <?php if ($rol == 1) { ?>
             <div class="row my-2">
@@ -291,13 +267,6 @@ $mysql->desconectar();
                       title="Collapse">
                       <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
                       <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
-                    </button>
-                    <button
-                      type="button"
-                      class="btn btn-tool"
-                      data-lte-toggle="card-remove"
-                      title="Remove">
-                      <i class="bi bi-x-lg"></i>
                     </button>
                   </div>
                 </div>

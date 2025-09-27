@@ -10,8 +10,8 @@ $mysql = new MySQL();
 
 $mysql->conectar();
 
-$cargos = $mysql->efectuarConsulta("SELECT * FROM cargos");
-$departamentos = $mysql->efectuarConsulta("SELECT * FROM departamentos");
+$cargos = $mysql->efectuarConsulta("SELECT * FROM cargos WHERE estadoCargo = 'Activo'");
+$departamentos = $mysql->efectuarConsulta("SELECT * FROM departamentos WHERE estadoDepartamento = 'Activo'");
 $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
 
 ?>
@@ -171,7 +171,7 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="password" class="form-label">Contraseña:</label>
-                            <input type="text" class="form-control" id="password" name="password" required>
+                            <input type="password" class="form-control" id="password" name="password" required>
                         </div>
                     </div>
                     <div class="col-md-6">

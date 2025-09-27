@@ -13,7 +13,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if ($res) {
             echo json_encode([
                 "success" => true,
-                "message" => "Empleado eliminado exitosamente"
+                "message" => "Departamento eliminado exitosamente"
             ]);
         } else {
             echo json_encode([
@@ -26,7 +26,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if ($res) {
             echo json_encode([
                 "success" => true,
-                "message" => "Empleado Restablecido exitosamente"
+                "message" => "Departamento restablecido exitosamente"
             ]);
         } else {
             echo json_encode([
