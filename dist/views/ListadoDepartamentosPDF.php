@@ -83,11 +83,9 @@ $mysql->desconectar();
                         </a>
                     </li>
                     <li class="nav-item d-none d-md-block">
-                        <a href="#" class="nav-link">Home</a>
+                        <a href="../index.php" class="nav-link">Home</a>
                     </li>
-                    <li class="nav-item d-none d-md-block">
-                        <a href="#" class="nav-link">Contact</a>
-                    </li>
+                   
                 </ul>
                 <!--end::Start Navbar Links-->
 
@@ -163,21 +161,21 @@ $mysql->desconectar();
                                 <li class="nav-item">
                                     <a href="../index.php" class="nav-link">
                                         <i class="fa-regular fa-eye"></i>
-                                        <p>Ver empleados</p>
+                                        <p>Empleados</p>
                                     </a>
                                 </li>
 
                                 <li class="nav-item">
                                     <a href="./departamentos.php" class="nav-link">
                                         <i class="fa-regular fa-eye"></i>
-                                        <p>Ver departamentos</p>
+                                        <p>Departamentos</p>
                                     </a>
                                 </li>
 
                                 <li class="nav-item">
                                     <a href="./cargos.php" class="nav-link">
                                         <i class="fa-regular fa-eye"></i>
-                                        <p>Ver cargos</p>
+                                        <p>Cargos</p>
                                     </a>
                                 </li>
 
@@ -245,12 +243,7 @@ $mysql->desconectar();
                         <div class="col-sm-6">
                             <h3 class="mb-0">Departamentos</h3>
                         </div>
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-end">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Departamentos</li>
-                            </ol>
-                        </div>
+                       
                     </div>
                     <!--end::Row-->
                 </div>
