@@ -61,7 +61,7 @@ $(document).on("click", ".btn-editar", function(){
             html: frmHTML,
             showCancelButton: true,
             confirmButtonText: "Guardar",
-            cancelButton: "Cancelar",
+            cancelButtonText: "Cancelar",
             customClass: {
                 confirmButton: "btn btn-success",
                 cancelButton: "btn btn-danger"

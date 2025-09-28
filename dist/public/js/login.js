@@ -18,9 +18,7 @@ $(document).on("click", ".btn-login", function(e){
         dataType: "json",
         success: function(respuesta){
            if(respuesta.success){
-            Swal.fire("EXITO", respuesta.message, "success").then(()=>{
                 window.location.href = "../index.php"
-            })
            }else{
             Swal.fire("ERROR", respuesta.message, "error");
            }

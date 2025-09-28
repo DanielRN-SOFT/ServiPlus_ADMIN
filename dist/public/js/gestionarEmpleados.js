@@ -92,6 +92,10 @@ $(document).on("click", ".btn-editar", function(){
             },
                 preConfirm: () =>{
                     const form = document.getElementById("frmEditarEmpleado");
+                    if (!form.checkValidity()) {
+                      form.reportValidity(); // Muestra los mensajes nativos del navegador
+                      return false; // SweetAlert no cierra
+                    }
                     const datos = new FormData(form);
 
                     return $.ajax({

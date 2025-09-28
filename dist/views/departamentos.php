@@ -105,7 +105,7 @@ $mysql->desconectar();
         <!--begin::End Navbar Links-->
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a href="./controllers/logout.php" class="btn nav-link bg-danger rounded-5 text-light">
+            <a href="../controllers/logout.php" class="btn nav-link bg-danger rounded-5 text-light">
               <p> <i class="fa-solid fa-right-from-bracket"></i> Log out</p>
             </a>
           </li>
