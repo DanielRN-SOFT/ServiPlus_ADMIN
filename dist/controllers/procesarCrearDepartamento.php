@@ -1,11 +1,13 @@
 <?php
 require_once '../model/MYSQL.php';
 
-$mysql = new MySQL();
-$mysql->conectar();
 
-if($_SERVER["REQUEST_METHOD"] == "POST"){
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["nombreDepartamento"]) && !empty($_POST["nombreDepartamento"])) {
+
+        $mysql = new MySQL();
+        $mysql->conectar();
+        
         $nombreDepartamento = filter_var(trim($_POST["nombreDepartamento"]), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $departamentos = $mysql->efectuarConsulta("SELECT * FROM departamentos WHERE nombreDepartamento = '$nombreDepartamento'");
         if (mysqli_num_rows($departamentos) > 0) {
@@ -21,14 +23,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 "message" => "Departamento agregado exitosamente"
             ]);
         }
-    }else{
+    } else {
         echo json_encode([
             "success" => false,
             "message" => "Faltan campos por rellenar"
         ]);
     }
 }
-
-
-
-?>

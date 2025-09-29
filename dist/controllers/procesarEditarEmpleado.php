@@ -1,8 +1,7 @@
 <?php
 require_once '../model/MYSQL.php';
 
-$mysql = new MySQL();
-$mysql->conectar();
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (
@@ -15,6 +14,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         && isset($_POST["telefono"]) && !empty($_POST["telefono"])
         && isset($_POST["correoElectronico"]) && !empty($_POST["correoElectronico"])
     ) {
+        $mysql = new MySQL();
+        $mysql->conectar();
+        
         $id = intval($_POST["id"]);
 
         $nombre = filter_var(trim($_POST["nombre"]), FILTER_SANITIZE_FULL_SPECIAL_CHARS);

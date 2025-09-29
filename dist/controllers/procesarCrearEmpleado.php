@@ -1,12 +1,7 @@
 <?php
 require_once '../model/MYSQL.php';
-$mysql = new MySQL();
 
-$mysql->conectar();
-
-header('Content-Type:application/json');
-
-if($_SERVER["REQUEST_METHOD"] === "POST"){
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (
         isset($_POST["nombre"]) && !empty($_POST["nombre"])
         && isset($_POST["numDocumento"]) && !empty($_POST["numDocumento"])
@@ -19,6 +14,9 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
         && isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK
         && isset($_POST["password"]) && !empty($_POST["password"])
     ) {
+        $mysql = new MySQL();
+        $mysql->conectar();
+
         $nombre = filter_var(trim($_POST["nombre"]), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $numDocumento = filter_var(trim($_POST["numDocumento"]), FILTER_SANITIZE_NUMBER_INT);
         $cargo = filter_var(trim($_POST["cargo"]), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -41,7 +39,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
             exit();
         }
 
-        if(!filter_var($correoElectronico, FILTER_VALIDATE_EMAIL)){
+        if (!filter_var($correoElectronico, FILTER_VALIDATE_EMAIL)) {
             echo json_encode([
                 "success" => false,
                 "message" => "Ingrese un correo electronico valido"
@@ -49,9 +47,9 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
             exit();
         }
 
-    
 
-        if(mysqli_num_rows($validacionCorreo) > 0){
+
+        if (mysqli_num_rows($validacionCorreo) > 0) {
             echo json_encode([
                 "success" => false,
                 "message" => "Correo electronico REPETIDO"
@@ -59,41 +57,37 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
             exit();
         }
 
-            $permitidos = ['image/jpeg' => '.jpg', 'image/png' => '.png'];
-            $tipo = mime_content_type($_FILES['foto']['tmp_name']);
-            if (!array_key_exists($tipo, $permitidos)) {
-                echo json_encode([
-                    "success" => false,
-                    "message" => "Solo se permiten formatos JPG o PNG"
-                ]);
-            }else{
-                $ext = $permitidos[$tipo];
-                $nombre_unico = 'imagen_' . date('Ymd_Hisv') . $ext;
-                $ruta = 'assets/img/' . $nombre_unico;
-                $rutaAbsoluta = __DIR__ . '/../' . $ruta;
-            }
+        $permitidos = ['image/jpeg' => '.jpg', 'image/png' => '.png'];
+        $tipo = mime_content_type($_FILES['foto']['tmp_name']);
+        if (!array_key_exists($tipo, $permitidos)) {
+            echo json_encode([
+                "success" => false,
+                "message" => "Solo se permiten formatos JPG o PNG"
+            ]);
+        } else {
+            $ext = $permitidos[$tipo];
+            $nombre_unico = 'imagen_' . date('Ymd_Hisv') . $ext;
+            $ruta = 'assets/img/' . $nombre_unico;
+            $rutaAbsoluta = __DIR__ . '/../' . $ruta;
+        }
 
-            if (move_uploaded_file($_FILES['foto']['tmp_name'], $rutaAbsoluta)) {
-                $mysql->efectuarConsulta("INSERT INTO empleados(nombre, numDocumento, cargo_id, departamento_id, fechaIngreso, salarioBase, estado, correoElectronico, telefono, imagen, password, rol_id) VALUES('$nombre' , $numDocumento, '$cargo' , '$departamento', '$fechaIngreso' , '$salarioBase' , 'Activo', '$correoElectronico', '$telefono', '$ruta' , '$hash', '$rol')");
-                $mysql->desconectar();
-              
-                echo json_encode([
-                    "success" => true,
-                    "message" => "Empledado creado exitosamente",
-                ]);
-              exit();
-            } else {
-                echo json_encode([
-                    "success" => false,
-                    "message" => "Error al guardar la imagen"
-                ]);
-                exit();
-            } 
-          
-        
-        
-       
-    }else{
+        if (move_uploaded_file($_FILES['foto']['tmp_name'], $rutaAbsoluta)) {
+            $mysql->efectuarConsulta("INSERT INTO empleados(nombre, numDocumento, cargo_id, departamento_id, fechaIngreso, salarioBase, estado, correoElectronico, telefono, imagen, password, rol_id) VALUES('$nombre' , $numDocumento, '$cargo' , '$departamento', '$fechaIngreso' , '$salarioBase' , 'Activo', '$correoElectronico', '$telefono', '$ruta' , '$hash', '$rol')");
+            $mysql->desconectar();
+
+            echo json_encode([
+                "success" => true,
+                "message" => "Empledado creado exitosamente",
+            ]);
+            exit();
+        } else {
+            echo json_encode([
+                "success" => false,
+                "message" => "Error al guardar la imagen"
+            ]);
+            exit();
+        }
+    } else {
         if (!filter_var($_POST["numDocumento"], FILTER_VALIDATE_INT)) {
             echo json_encode([
                 "success" => false,
@@ -109,7 +103,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
             exit();
         }
 
- 
+
         if (!filter_var($_POST["telefono"], FILTER_VALIDATE_INT)) {
             echo json_encode([
                 "success" => false,
@@ -124,14 +118,10 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
         ]);
         exit();
     }
-    
-} else{
+} else {
     echo json_encode([
         "success" => false,
         "message" => "Metodo invalido",
     ]);
     exit();
 }
-
-
-?>

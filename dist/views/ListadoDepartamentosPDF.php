@@ -91,7 +91,7 @@ $mysql->desconectar();
                 <!--begin::End Navbar Links-->
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a href="../controllers/logout.php" class="btn nav-link bg-danger rounded-5 text-light">
+                        <a href="../controllers/logout.php" class="btn nav-link btn-eliminar rounded-5 text-light">
                             <p> <i class="fa-solid fa-right-from-bracket"></i> Log out</p>
                         </a>
                     </li>
@@ -102,7 +102,7 @@ $mysql->desconectar();
         </nav>
         <!--end::Header-->
         <!--begin::Sidebar-->
-        <aside class="app-sidebar bg-sena shadow" data-bs-theme="dark">
+        <aside class="app-sidebar bg-sena shadow fw-bold" data-bs-theme="dark">
             <!--begin::Sidebar Brand-->
             <div class="sidebar-brand">
                 <!--begin::Brand Link-->
@@ -254,7 +254,7 @@ $mysql->desconectar();
                                                     </div>
 
                                                     <div class="col-sm-6">
-                                                        <button class="btn btn-success w-100">Generar PDF</button>
+                                                        <button class="btn btn-confirmar btn-success w-100">Generar PDF</button>
                                                     </div>
                                                 </div>
 

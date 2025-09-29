@@ -124,7 +124,7 @@ $mysql->desconectar();
     </nav>
     <!--end::Header-->
     <!--begin::Sidebar-->
-    <aside class="app-sidebar bg-sena shadow" data-bs-theme="dark">
+    <aside class="app-sidebar bg-sena shadow fw-bold" data-bs-theme="dark">
       <!--begin::Sidebar Brand-->
       <div class="sidebar-brand">
         <!--begin::Brand Link-->
@@ -157,7 +157,7 @@ $mysql->desconectar();
               <a href="#" class="nav-link active">
                 <i class="bi bi-person"></i>
                 <p>
-                  Información
+                  Informacion
                   <i class="nav-arrow bi bi-chevron-right"></i>
                 </p>
               </a>
@@ -243,16 +243,16 @@ $mysql->desconectar();
           <!--begin::Row-->
           <div class="row">
             <div class="col-sm-6">
-              <h3 class="mb-0 fw-bold">Cargos</h3>
+              <h3 class="mb-0 fw-bold texto-principal">Cargos</h3>
             </div>
 
           </div>
 
           <?php if ($rol == 1) { ?>
 
-            <div class="row my-2">
+            <div class="row mt-3 mb-2">
               <div class="col-sm-12">
-                <button id="crearCargo" class="btn btn-primary">Crear cargo</button>
+                <button id="crearCargo" class="btn btn-primary w-100 fs-5">Crear cargo</button>
               </div>
             </div>
 
@@ -306,16 +306,16 @@ $mysql->desconectar();
                           <td> <?php echo $fila["estadoCargo"] ?> </td>
                           <?php if ($rol == 1) { ?>
                             <td>
-                              <button class="btn btn-outline-warning mx-1 btn-editar" data-id="<?php echo $fila["IDcargo"] ?>"><i class="fa-solid fa-pen-to-square"></i></button>
+                              <button class="btn btn-warning btn-advertencia mx-1 btn-editar" data-id="<?php echo $fila["IDcargo"] ?>"><i class="fa-solid fa-pen-to-square"></i></button>
                               <?php
                               if ($fila["estadoCargo"] == "Activo") { ?>
 
-                                <button class="btn btn-outline-danger btn-eliminar" data-nombre="<?php echo $fila['nombreCargo']; ?>"
+                                <button class="btn btn-danger btn-eliminar btn-eliminar-cargo" data-nombre="<?php echo $fila['nombreCargo']; ?>"
                                   data-id="<?php echo $fila['IDcargo']; ?>">
                                   <i class="fa-solid fa-trash"></i>
                                 </button>
                               <?php } else { ?>
-                                <button class="btn btn-outline-success btn-reintegrar" data-nombre="<?php echo $fila['nombreCargo']; ?>" data-id="<?php echo $fila["IDcargo"] ?>"><i class="fa-solid fa-check"></i></button>
+                                <button class="btn btn-confirmar btn-success btn-reintegrar" data-nombre="<?php echo $fila['nombreCargo']; ?>" data-id="<?php echo $fila["IDcargo"] ?>"><i class="fa-solid fa-check"></i></button>
 
                               <?php } ?>
 

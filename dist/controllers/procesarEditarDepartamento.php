@@ -1,11 +1,12 @@
 <?php
 require_once '../model/MYSQL.php';
 
-$mysql = new MySQL();
-$mysql->conectar();
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     if (isset($_POST["nombreDepartamento"]) && !empty($_POST["nombreDepartamento"])) {
+        $mysql = new MySQL();
+        $mysql->conectar();
+
         $id = $_POST["id"];
         $nombreDepartamento = filter_var(trim($_POST["nombreDepartamento"]), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $estadoDepartamento = filter_var(trim($_POST["estadoDepartamento"]), FILTER_SANITIZE_FULL_SPECIAL_CHARS);

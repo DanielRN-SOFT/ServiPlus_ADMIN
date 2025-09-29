@@ -99,7 +99,7 @@ $rol = $usuarios->getRol();
     </nav>
     <!--end::Header-->
     <!--begin::Sidebar-->
-    <aside class="app-sidebar bg-sena shadow" data-bs-theme="dark">
+    <aside class="app-sidebar bg-sena shadow fw-bold" data-bs-theme="dark">
       <!--begin::Sidebar Brand-->
       <div class="sidebar-brand">
         <!--begin::Brand Link-->

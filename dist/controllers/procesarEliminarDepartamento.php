@@ -1,10 +1,12 @@
 <?php
 
 require_once '../model/MYSQL.php';
-$mysql = new MySQL();
-$mysql->conectar();
+
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
+    if (isset($_POST["id"]) && !empty($_POST["id"])) {
+    $mysql = new MySQL();
+    $mysql->conectar();
     $id = $_POST["id"];
     $estadoDepartamentos = $mysql->efectuarConsulta("SELECT * FROM departamentos where IDdepartamento = $id");
     $estadoFila = $estadoDepartamentos->fetch_assoc()["estadoDepartamento"];
@@ -35,6 +37,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             ]);
         }
     }
+}
 }
 
 ?>

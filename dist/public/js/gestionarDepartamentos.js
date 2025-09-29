@@ -93,7 +93,7 @@ $(document).on("click", ".btn-editar", function(){
 
 
 
-$(document).on("click", ".btn-eliminar", function(){
+$(document).on("click", ".btn-eliminar-dep", function(){
     let IDdepartamento = $(this).data("id");
     let nombre = $(this).data("nombre");
     console.log(IDdepartamento);

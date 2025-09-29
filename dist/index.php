@@ -79,7 +79,7 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.6/css/responsive.dataTables.css" />
 </head>
 
-<body class="layout-fixed sidebar-expand-lg sidebar-open bg-body-tertiary">
+<body class="layout-fixed sidebar-expand-lg sidebar-open bg-body-tertiary text-principal">
   <!--begin::App Wrapper-->
   <div class="app-wrapper">
     <!--begin::Header-->
@@ -103,7 +103,7 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
         <!--begin::End Navbar Links-->
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a href="./controllers/logout.php" class="btn nav-link bg-danger rounded-5 text-light">
+            <a href="./controllers/logout.php" class="btn nav-link btn-eliminar bg-danger rounded-5 text-light">
               <p> <i class="fa-solid fa-right-from-bracket"></i> Log out</p>
             </a>
           </li>
@@ -115,7 +115,7 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
     </nav>
     <!--end::Header-->
     <!--begin::Sidebar-->
-    <aside class="app-sidebar bg-sena shadow" data-bs-theme="dark">
+    <aside class="app-sidebar bg-sena texto-principal shadow" data-bs-theme="dark">
       <!--begin::Sidebar Brand-->
       <div class="sidebar-brand">
         <!--begin::Brand Link-->
@@ -144,11 +144,11 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
             aria-label="Main navigation"
             data-accordion="false"
             id="navigation">
-            <li class="nav-item menu-open">
+            <li class="nav-item menu-open fw-bold">
               <a href="#" class="nav-link active">
                 <i class="bi bi-person"></i>
-                <p>
-                  Infromacion
+                <p class="">
+                  Informacion
                   <i class="nav-arrow bi bi-chevron-right"></i>
                 </p>
               </a>
@@ -208,7 +208,7 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
               <li class="nav-item">
                 <a href="./views/graficoBarras.php" class="nav-link">
                   <i class="fa-solid fa-signal"></i>
-                  <p>Empleados</p>
+                  <p class="">Empleados</p>
                 </a>
               </li>
             <?php } ?>
@@ -228,15 +228,15 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
           <!--begin::Row-->
           <div class="row">
             <div class="col-sm-6">
-              <h3 class="mb-0 fw-bold">Empleados</h3>
+              <h3 class="mb-0 fw-bold texto-principal">Empleados</h3>
               <h4 class="mt-2">Bienvenido: <span class="fw-bold text-primary"><?php echo $nombre ?> </span> </h4>
             </div>
 
           </div>
           <?php if ($rol == 1) { ?>
             <div class="row my-2">
-              <div class="col-sm-6">
-                <button class="btn btn-primary" id="abrirCrearFrm">Crear nuevo empleado</button>
+              <div class="col-sm-12">
+                <button class="btn btn-informacion btn-primary w-100 fs-5" id="abrirCrearFrm">Crear empleado</button>
               </div>
             </div>
           <?php } ?>
@@ -252,7 +252,7 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
             <div class="col-md-12">
               <div class="card mb-4">
                 <div class="card-header">
-                  <h5 class="card-title fw-bold fs-5">Lista de empleados</h5>
+                  <h5 class="card-title fw-bold fs-5 texto-principal">Lista de empleados</h5>
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse">
                       <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
@@ -261,7 +261,7 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
                     <div class="btn-group">
 
                     </div>
-                  
+
                   </div>
                 </div>
                 <!-- /.card-header -->
@@ -270,7 +270,7 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
                   <div class="row">
                     <div class="col-md-12" id="contenedorTabla">
                       <div class="table-responsive">
-                        <table class="table table-striped table-bordered display" id="tblEmpleados">
+                        <table class="table texto-principal table-striped table-bordered display" id="tblEmpleados">
                           <thead class="text-center">
                             <tr class="bg bg-dark">
                               <th scope="col" class="text-dark">Imagen</th>
@@ -293,9 +293,9 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
                           </thead>
                           <tbody>
                             <?php while ($fila = $empleados->fetch_assoc()): ?>
-                              <tr>
+                              <tr class="texto-principal">
                                 <td class="text-center">
-                                  <img src=" <?php echo $fila["imagen"] ?>" width="50" alt="">
+                                  <img src=" <?php echo $fila["imagen"] ?>" class="img-fluid" width="50" alt="">
                                 </td>
                                 <td>
                                   <?php echo $fila["nombre"] ?>
@@ -332,15 +332,15 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
                                 <?php
                                 if ($rol == 1) { ?>
                                   <td>
-                                    <button class="btn btn-outline-warning mx-1 btn-editar" data-id="<?php echo $fila["IDempleado"] ?>"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    <button class="btn btn-warning mx-1 btn-editar btn-advertencia" data-id="<?php echo $fila["IDempleado"] ?>"><i class="fa-solid fa-pen-to-square"></i></button>
                                     <?php
                                     if ($fila["estado"] == "Activo") { ?>
-                                      <button class="btn btn-outline-danger btn-eliminar" data-nombre="<?php echo $fila['nombre']; ?>" data-num="<?php echo $fila["numDocumento"] ?>"
+                                      <button class="btn btn-danger btn-eliminar btn-eliminarEmp" data-nombre="<?php echo $fila['nombre']; ?>" data-num="<?php echo $fila["numDocumento"] ?>"
                                         data-id="<?php echo $fila['IDempleado']; ?>">
                                         <i class="fa-solid fa-trash"></i>
                                       </button>
                                     <?php } else { ?>
-                                      <button class="btn btn-outline-success btn-reintegrar" data-nombre="<?php echo $fila['nombre']; ?>" data-id="<?php echo $fila["IDempleado"] ?>" data-num="<?php echo $fila['numDocumento']; ?>"><i class="fa-solid fa-check"></i></button>
+                                      <button class="btn btn-confirmar btn-success btn-reintegrar" data-nombre="<?php echo $fila['nombre']; ?>" data-id="<?php echo $fila["IDempleado"] ?>" data-num="<?php echo $fila['numDocumento']; ?>"><i class="fa-solid fa-check"></i></button>
                                     <?php } ?>
                                   </td>
                                 <?php } ?>

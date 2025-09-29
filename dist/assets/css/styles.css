@@ -4,7 +4,7 @@
     --advertencia: #ffc107;
     --informacion: #007bff;
 
-    --verdeSena: #003500;
+    --verdeSena: #008000;
     --blanco: #ffffff;
     --grisClaro: #f8f9fa;
     --textoPrincipal: #212529;
@@ -15,12 +15,33 @@
     background-color: var(--verdeSena);
 }
 
+.texto-principal{
+    color: var(--textoPrincipal) !important;
+}
+
 .bg-fondo{
     background-color: var(--grisClaro);
 }
 
 .btn-confirmar{
     background-color: var(--confirmar);
-    color: var(--blanco);
+    color: var(--blanco)
 }
+
+.btn-advertencia{
+    background-color: var(--advertencia);
+    color: var(--textoPrincipal)
+}
+
+.btn-informacion{
+    background-color: var(--informacion);
+    color: var(--blanco)
+}
+
+.btn-eliminar{
+    background-color: var(--eliminar);
+    color: var(--blanco)
+}
+
+
 

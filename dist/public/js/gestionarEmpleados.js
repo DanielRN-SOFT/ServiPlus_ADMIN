@@ -9,14 +9,14 @@ $(document).ready(function(){
         type: "GET",
         success: function(frmHTML){ // si la petición es exitosa, frmHTML trae el <form> generado en PHP
             Swal.fire({
-                title: '<strong class="text-primary fw-bold"> Crear un nuevo empleado </strong',
+                title: '<strong class="text-primary fw-bold"> Crear empleado </strong',
                 html: frmHTML,
                 showCancelButton: true,
                 confirmButtonText: "Agregar",
                 cancelButtonText: "Cancelar",
                  customClass: {
-                confirmButton: "btn btn-success",
-                cancelButton: "btn btn-danger"
+                confirmButton: "btn btn-confirmar btn-success",
+                cancelButton: "btn btn-eliminar btn-danger"
             },
                   // preConfirm se ejecuta antes de cerrar el modal, cuando das clic en "Enviar"
                 preConfirm: () =>{
@@ -87,8 +87,8 @@ $(document).on("click", ".btn-editar", function(){
                 confirmButtonText: "Guardar cambios",
                 cancelButtonText: "Cancelar",
                 customClass: {
-                confirmButton: "btn btn-success",
-                cancelButton: "btn btn-danger"
+                confirmButton: "btn btn-confirmar btn-success",
+                cancelButton: "btn btn-eliminar btn-danger"
             },
                 preConfirm: () =>{
                     const form = document.getElementById("frmEditarEmpleado");
@@ -132,7 +132,7 @@ $(document).on("click", ".btn-editar", function(){
 
 // Eliminar empleado
 
-$(document).on("click", ".btn-eliminar", function(){
+$(document).on("click", ".btn-eliminarEmp", function(){
     let IDempleado = $(this).data("id");
     let nombreEmpleado = $(this).data("nombre");
     let numDocumento = $(this).data("num");
@@ -146,8 +146,8 @@ $(document).on("click", ".btn-eliminar", function(){
             confirmButtonText: 'Si, eliminar empleado',
             cancelButtonText: "Cancelar",
             customClass: {
-                confirmButton: "btn btn-success",
-                cancelButton: "btn btn-danger"
+                confirmButton: "btn btn-confirmar btn-success",
+                cancelButton: "btn btn-eliminar btn-danger"
             },
             preConfirm: () =>{
                 return $.ajax({
@@ -187,8 +187,8 @@ $(document).on("click", ".btn-reintegrar", function(){
             confirmButtonText: 'Si, restablecer empleado',
             cancelButtonText: "Cancelar",
             customClass: {
-                confirmButton: "btn btn-success",
-                cancelButton: "btn btn-danger"
+                confirmButton: "btn btn-confirmar btn-success",
+                cancelButton: "btn btn-eliminar btn-danger"
             },
             preConfirm: () =>{
                 return $.ajax({
@@ -212,22 +212,3 @@ $(document).on("click", ".btn-reintegrar", function(){
          })
 })
 
-
-function validarCorreo(email){
-    const arrobaIndex = email.indexOf("@");
-    const puntoIndex = email.lastIndexOf('.');
-
-    if(arrobaIndex < 1 || puntoIndex === -1){
-        return false;
-    }
-
-    if((puntoIndex - arrobaIndex) < 2){
-        return false;
-    }
-
-    if(puntoIndex === email.length -1){
-        return false;
-    }
-
-    return true
-}

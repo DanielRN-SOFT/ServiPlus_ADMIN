@@ -105,7 +105,7 @@ $mysql->desconectar();
         <!--begin::End Navbar Links-->
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a href="../controllers/logout.php" class="btn nav-link bg-danger rounded-5 text-light">
+            <a href="../controllers/logout.php" class="btn nav-link btn-eliminar bg-danger rounded-5 text-light">
               <p> <i class="fa-solid fa-right-from-bracket"></i> Log out</p>
             </a>
           </li>
@@ -116,7 +116,7 @@ $mysql->desconectar();
     </nav>
     <!--end::Header-->
     <!--begin::Sidebar-->
-    <aside class="app-sidebar bg-sena shadow" data-bs-theme="dark">
+    <aside class="app-sidebar bg-sena shadow fw-bold" data-bs-theme="dark">
       <!--begin::Sidebar Brand-->
       <div class="sidebar-brand">
         <!--begin::Brand Link-->
@@ -237,9 +237,9 @@ $mysql->desconectar();
 
           </div>
           <?php if ($rol == 1) { ?>
-            <div class="row my-2">
+            <div class="row mt-3 mb-2">
               <div class="col-sm-12">
-                <button id="crearDepartamento" class="btn btn-primary">Crear departamento</button>
+                <button id="crearDepartamento" class="btn btn-primary btn-informacion w-100 fs-5">Crear departamento</button>
               </div>
             </div>
           <?php } ?>
@@ -258,7 +258,7 @@ $mysql->desconectar();
               <!-- Default box -->
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">Lista de departamentos</h3>
+                  <h3 class="card-title text-principal">Lista de departamentos</h3>
                   <div class="card-tools">
                     <button
                       type="button"
@@ -289,16 +289,16 @@ $mysql->desconectar();
                           <?php
                           if ($rol == 1) { ?>
                             <td>
-                              <button class="btn btn-outline-warning mx-1 btn-editar" data-id="<?php echo $fila["IDdepartamento"] ?>"><i class="fa-solid fa-pen-to-square"></i></button>
+                              <button class="btn btn-warning btn-advertencia mx-1 btn-editar" data-id="<?php echo $fila["IDdepartamento"] ?>"><i class="fa-solid fa-pen-to-square"></i></button>
                               <?php
                               if ($fila["estadoDepartamento"] == "Activo") { ?>
-                                <button class="btn btn-outline-danger btn-eliminar"
+                                <button class="btn btn-danger btn-eliminar btn-eliminar-dep"
                                   data-id="<?php echo $fila['IDdepartamento']; ?>"
                                   data-nombre="<?php echo $fila["nombreDepartamento"] ?>">
                                   <i class=" fa-solid fa-trash"></i>
                                 </button>
                               <?php } else { ?>
-                                <button class="btn btn-outline-success btn-reintegrar" data-id="<?php echo $fila["IDdepartamento"] ?>" data-nombre="<?php echo $fila["nombreDepartamento"] ?>"><i class=" fa-solid fa-check"></i></button>
+                                <button class="btn btn-confirmar btn-success btn-reintegrar" data-id="<?php echo $fila["IDdepartamento"] ?>" data-nombre="<?php echo $fila["nombreDepartamento"] ?>"><i class=" fa-solid fa-check"></i></button>
                               <?php } ?>
                             </td>
                           <?php } ?>
