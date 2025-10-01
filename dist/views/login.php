@@ -45,6 +45,7 @@
   <link rel="stylesheet" href="../css/adminlte.css" />
   <!--end::Required Plugin(AdminLTE)-->
 
+  <link rel="stylesheet" href="../assets/css/styles.css">
   <!-- Jquery -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- SweetAlert2 -->
@@ -80,7 +81,7 @@
               <label for="password">Password</label>
             </div>
           </div>
-          <button type="" class="btn btn-primary w-100 mt-3 fs-5 btn-login">Ingresar <i class="fa-solid fa-right-to-bracket"></i></button>
+          <button type="" class="btn btn-informacion btn-primary w-100 mt-3 fs-5 btn-login">Ingresar <i class="fa-solid fa-right-to-bracket"></i></button>
         </form>
       </div>
       <!-- /.login-card-body -->

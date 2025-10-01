@@ -30,6 +30,30 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $hash = password_hash($passwordPlano, PASSWORD_BCRYPT);
         $rol = filter_var(trim($_POST["rol"]), FILTER_SANITIZE_NUMBER_INT);
 
+        if($numDocumento < 0){
+            echo json_encode([
+                "success" => false,
+                "message" => "Ingrese un valor positivo en el numero de documento"
+            ]);
+            exit();
+        }
+
+        if($salarioBase < 0){
+            echo json_encode([
+                "success" => false,
+                "message" => "Ingrese un valor positivo en el salario base"
+            ]);
+            exit();
+        }
+
+        if($telefono < 0 ){
+            echo json_encode([
+                "success" => false,
+                "message" => "Ingrese un valor positivo en el telefono"
+            ]);
+            exit();
+        }
+
         $validacionNum = $mysql->efectuarConsulta("SELECT * FROM empleados WHERE numDocumento = $numDocumento");
         $validacionCorreo = $mysql->efectuarConsulta("SELECT * FROM empleados WHERE correoElectronico = '$correoElectronico'");
         if (mysqli_num_rows($validacionNum) > 0) {
@@ -78,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             echo json_encode([
                 "success" => true,
-                "message" => "Empledado creado exitosamente",
+                "message" => "Empleado creado exitosamente",
             ]);
             exit();
         } else {

@@ -22,11 +22,7 @@ $(document).ready(function(){
                 preConfirm: () =>{
                     // Captura el formulario insertado en el SweetAlert
                    const form = document.getElementById("frmCrearEmpleado");
-                       if (!form.checkValidity()) {
-                         form.reportValidity(); // Muestra los mensajes nativos del navegador
-                         return false; // SweetAlert no cierra
-                       }
-
+                   
                    // Crea un objeto FormData con todos los campos del formulario (incluye archivos)
                    const formData = new FormData(form);
                 
