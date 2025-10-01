@@ -1,5 +1,5 @@
 <?php
-require_once '../model/MYSQL.php';
+
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (
@@ -14,6 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         && isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK
         && isset($_POST["password"]) && !empty($_POST["password"])
     ) {
+        require_once '../model/MYSQL.php';
         $mysql = new MySQL();
         $mysql->conectar();
 

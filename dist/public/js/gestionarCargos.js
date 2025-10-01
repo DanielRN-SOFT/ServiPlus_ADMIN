@@ -6,13 +6,13 @@ $(document).ready(function(){
             type: "GET",
             success: function(frmHTML){
                 Swal.fire({
-                    title: '<span class="text-primary"> Crear cargo </span>',
+                    title: '<span class="text-success"> Crear cargo </span>',
                     html: frmHTML,
                     showCancelButton: true,
                     confirmButtonText: "Agregar",
                     cancelButtonText: "Cancelar",
                     customClass:{
-                        confirmButton: "btn btn-success",
+                        confirmButton: "btn btn-confirmar btn-success",
                         cancelButton: "btn btn-danger"
                     },
                     preConfirm: function(){
@@ -57,13 +57,13 @@ $(document).on("click", ".btn-editar", function(){
     data: {id: IDcargo},
     success: function(frmHTML){
         Swal.fire({
-            title: '<span class = "text-warning"> Editar cargo </span>',
+            title: '<span class = "text-primary"> Editar cargo </span>',
             html: frmHTML,
             showCancelButton: true,
             confirmButtonText: "Guardar",
             cancelButtonText: "Cancelar",
             customClass: {
-                confirmButton: "btn btn-success",
+                confirmButton: "btn btn-confirmar btn-success",
                 cancelButton: "btn btn-danger"
             },
             preConfirm: () =>{
@@ -107,7 +107,7 @@ $(document).on("click", ".btn-eliminar", function(){
         cancelButtonText: "Cancelar",
         icon: "warning",
         customClass:{
-            confirmButton: "btn btn-success",
+            confirmButton: "btn btn-confirmar btn-success",
             cancelButton: "btn btn-danger"
         },
         preConfirm: function(){
@@ -145,7 +145,7 @@ $(document).on("click", ".btn-reintegrar", function(){
         cancelButtonText: "Cancelar",
         icon: "warning",
         customClass:{
-            confirmButton: "btn btn-success",
+            confirmButton: "btn btn-confirmar btn-success",
             cancelButton: "btn btn-danger"
         },
         preConfirm: function(){

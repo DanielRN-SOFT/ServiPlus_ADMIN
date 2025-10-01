@@ -1,10 +1,10 @@
 <?php
-require_once '../model/MYSQL.php';
+
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["nombreDepartamento"]) && !empty($_POST["nombreDepartamento"])) {
-
+        require_once '../model/MYSQL.php';
         $mysql = new MySQL();
         $mysql->conectar();
         

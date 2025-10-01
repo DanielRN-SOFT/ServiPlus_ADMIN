@@ -9,7 +9,7 @@ $(document).ready(function(){
         type: "GET",
         success: function(frmHTML){ // si la petición es exitosa, frmHTML trae el <form> generado en PHP
             Swal.fire({
-                title: '<strong class="text-primary fw-bold"> Crear empleado </strong',
+                title: '<strong class="text-success fw-bold"> Crear empleado </strong',
                 html: frmHTML,
                 showCancelButton: true,
                 confirmButtonText: "Agregar",
@@ -81,7 +81,7 @@ $(document).on("click", ".btn-editar", function(){
         data: {id: IDempleado},
         success: function(frmHTML){
             Swal.fire({
-                title: '<strong class="text-warning fw-bold"> Editar empleado </strong',
+                title: '<strong class="text-primary fw-bold"> Editar empleado </strong',
                 html: frmHTML,
                 showCancelButton: true,
                 confirmButtonText: "Guardar cambios",

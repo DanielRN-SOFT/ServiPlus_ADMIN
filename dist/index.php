@@ -38,6 +38,7 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ServiPlus | Ver empleados</title>
   <link rel="preload" href="./css/adminlte.css" as="style" />
+  <link rel="shortcut icon" href="./assets/img/serviplus.avif" type="image/x-icon">
   <!--end::Accessibility Features-->
   <!--begin::Fonts-->
   <link
@@ -122,9 +123,9 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
         <a href="./index.php" class="brand-link">
           <!--begin::Brand Image-->
           <img
-            src="./assets/img/AdminLTELogo.png"
+            src="./assets/img/serviplus.avif"
             alt="AdminLTE Logo"
-            class="brand-image opacity-75 shadow" />
+            class="brand-image opacity-75 shadow rounded-4" />
           <!--end::Brand Image-->
           <!--begin::Brand Text-->
           <span class="brand-text fw-light">ServiPlus</span>
@@ -236,7 +237,7 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
           <?php if ($rol == 1) { ?>
             <div class="row my-2">
               <div class="col-sm-12">
-                <button class="btn btn-informacion btn-primary w-100 fs-5" id="abrirCrearFrm">Crear empleado</button>
+                <button class="btn btn-success btn-confirmar w-100 fs-5" id="abrirCrearFrm">Crear empleado</button>
               </div>
             </div>
           <?php } ?>
@@ -332,7 +333,7 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
                                 <?php
                                 if ($rol == 1) { ?>
                                   <td>
-                                    <button class="btn btn-warning mx-1 btn-editar btn-advertencia" data-id="<?php echo $fila["IDempleado"] ?>"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    <button class="btn btn-primary mx-1 btn-editar btn-informacion" data-id="<?php echo $fila["IDempleado"] ?>"><i class="fa-solid fa-pen-to-square"></i></button>
                                     <?php
                                     if ($fila["estado"] == "Activo") { ?>
                                       <button class="btn btn-danger btn-eliminar btn-eliminarEmp" data-nombre="<?php echo $fila['nombre']; ?>" data-num="<?php echo $fila["numDocumento"] ?>"

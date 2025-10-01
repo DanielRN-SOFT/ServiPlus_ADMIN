@@ -6,13 +6,13 @@ $(document).ready(function(){
             type: "GET",
             success: function(frmHTML){
                 Swal.fire({
-                    title: '<span class="text-primary">Crear un nuevo <br> departamento</span>',
+                    title: '<span class="text-success">Crear un nuevo <br> departamento</span>',
                     html: frmHTML,
                     showCancelButton: true,
                     confirmButtonText: "Agregar",
                     cancelButtonText: "Cancelar",
                     customClass: {
-                        confirmButton: "btn btn-success p-2",
+                        confirmButton: "btn btn-confirmar btn-success p-2",
                         cancelButton: "btn btn-danger p-2"
                     },
                     preConfirm: () =>{
@@ -54,13 +54,13 @@ $(document).on("click", ".btn-editar", function(){
     data: {id: IDdepartamento},
     success: function(frmHTML){
         Swal.fire({
-            title: '<p class="text-warning">Editar departamento</p>',
+            title: '<p class="text-primary">Editar departamento</p>',
             html: frmHTML,
             showCancelButton: true,
             confirmButtonText: "Guardar cambios",
             cancelButtonText: "Cancelar",
             customClass: {
-                confirmButton: "btn btn-success p-2",
+                confirmButton: "btn btn-confirmar btn-success p-2",
                 cancelButton: "btn btn-danger p-2"
             },
             preConfirm: () =>{
@@ -105,7 +105,7 @@ $(document).on("click", ".btn-eliminar-dep", function(){
         confirmButtonText: "Si, Eliminar departamento",
         cancelButtonText: "Cancelar",
         customClass: {
-            confirmButton: "btn btn-success",
+            confirmButton: "btn btn-confirmar btn-success",
             cancelButton: "btn btn-danger"
         },
         preConfirm: () =>{
@@ -145,7 +145,7 @@ $(document).on("click", ".btn-reintegrar", function(){
         confirmButtonText: "Si, reintegar empleado",
         cancelButtonText: "Cancelar",
         customClass:{
-            confirmButton: "btn btn-success",
+            confirmButton: "btn btn-confirmar btn-success",
             cancelButton: "btn btn-danger"
         },
         preConfirm: () =>{

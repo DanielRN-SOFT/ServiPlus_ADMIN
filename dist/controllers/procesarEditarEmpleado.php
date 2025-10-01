@@ -1,5 +1,5 @@
 <?php
-require_once '../model/MYSQL.php';
+
 
 
 
@@ -14,6 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         && isset($_POST["telefono"]) && !empty($_POST["telefono"])
         && isset($_POST["correoElectronico"]) && !empty($_POST["correoElectronico"])
     ) {
+        require_once '../model/MYSQL.php';
         $mysql = new MySQL();
         $mysql->conectar();
         

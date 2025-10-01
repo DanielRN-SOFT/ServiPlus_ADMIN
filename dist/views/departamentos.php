@@ -27,6 +27,7 @@ $mysql->desconectar();
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ServiPlus | Ver departamentos</title>
   <link rel="preload" href="../css/adminlte.css" as="style" />
+  <link rel="shortcut icon" href="../assets/img/serviplus.avif" type="image/x-icon">
   <!--end::Accessibility Features-->
 
   <!--begin::Fonts-->
@@ -123,9 +124,9 @@ $mysql->desconectar();
         <a href="../index.php" class="brand-link">
           <!--begin::Brand Image-->
           <img
-            src="../assets/img/AdminLTELogo.png"
+            src="../assets/img/serviplus.avif"
             alt="AdminLTE Logo"
-            class="brand-image opacity-75 shadow" />
+            class="brand-image opacity-75 shadow rounded-4" />
           <!--end::Brand Image-->
           <!--begin::Brand Text-->
           <span class="brand-text fw-light">ServiPlus</span>
@@ -239,7 +240,7 @@ $mysql->desconectar();
           <?php if ($rol == 1) { ?>
             <div class="row mt-3 mb-2">
               <div class="col-sm-12">
-                <button id="crearDepartamento" class="btn btn-primary btn-informacion w-100 fs-5">Crear departamento</button>
+                <button id="crearDepartamento" class="btn btn-success btn-confirmar w-100 fs-5">Crear departamento</button>
               </div>
             </div>
           <?php } ?>
@@ -289,7 +290,7 @@ $mysql->desconectar();
                           <?php
                           if ($rol == 1) { ?>
                             <td>
-                              <button class="btn btn-warning btn-advertencia mx-1 btn-editar" data-id="<?php echo $fila["IDdepartamento"] ?>"><i class="fa-solid fa-pen-to-square"></i></button>
+                              <button class="btn btn-primary btn-informacion mx-1 btn-editar" data-id="<?php echo $fila["IDdepartamento"] ?>"><i class="fa-solid fa-pen-to-square"></i></button>
                               <?php
                               if ($fila["estadoDepartamento"] == "Activo") { ?>
                                 <button class="btn btn-danger btn-eliminar btn-eliminar-dep"

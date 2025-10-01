@@ -27,6 +27,7 @@ $mysql->desconectar();
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>ServiPlus | Listado de departamentos</title>
     <link rel="preload" href="../css/adminlte.css" as="style" />
+    <link rel="shortcut icon" href="../assets/img/serviplus.avif" type="image/x-icon">
     <!--end::Accessibility Features-->
 
     <!--begin::Fonts-->
@@ -109,9 +110,9 @@ $mysql->desconectar();
                 <a href="../index.php" class="brand-link">
                     <!--begin::Brand Image-->
                     <img
-                        src="../assets/img/AdminLTELogo.png"
+                        src="../assets/img/serviplus.avif"
                         alt="AdminLTE Logo"
-                        class="brand-image opacity-75 shadow" />
+                        class="brand-image opacity-75 shadow rounded-4" />
                     <!--end::Brand Image-->
                     <!--begin::Brand Text-->
                     <span class="brand-text fw-light">ServiPlus</span>

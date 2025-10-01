@@ -30,6 +30,7 @@ $mysql->desconectar();
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 
   <link rel="preload" href="../css/adminlte.css" as="style" />
+  <link rel="shortcut icon" href="../assets/img/serviplus.avif" type="image/x-icon">
   <!--end::Accessibility Features-->
 
   <!--begin::Fonts-->
@@ -131,9 +132,9 @@ $mysql->desconectar();
         <a href="../index.php" class="brand-link">
           <!--begin::Brand Image-->
           <img
-            src="../assets/img/AdminLTELogo.png"
+            src="../assets/img/serviplus.avif"
             alt="AdminLTE Logo"
-            class="brand-image opacity-75 shadow" />
+            class="brand-image opacity-75 shadow rounded-4" />
           <!--end::Brand Image-->
           <!--begin::Brand Text-->
           <span class="brand-text fw-light">ServiPlus</span>
@@ -252,7 +253,7 @@ $mysql->desconectar();
 
             <div class="row mt-3 mb-2">
               <div class="col-sm-12">
-                <button id="crearCargo" class="btn btn-primary w-100 fs-5">Crear cargo</button>
+                <button id="crearCargo" class="btn btn-success btn-confirmar w-100 fs-5">Crear cargo</button>
               </div>
             </div>
 
@@ -306,7 +307,7 @@ $mysql->desconectar();
                           <td> <?php echo $fila["estadoCargo"] ?> </td>
                           <?php if ($rol == 1) { ?>
                             <td>
-                              <button class="btn btn-warning btn-advertencia mx-1 btn-editar" data-id="<?php echo $fila["IDcargo"] ?>"><i class="fa-solid fa-pen-to-square"></i></button>
+                              <button class="btn btn-primary btn-informacion mx-1 btn-editar" data-id="<?php echo $fila["IDcargo"] ?>"><i class="fa-solid fa-pen-to-square"></i></button>
                               <?php
                               if ($fila["estadoCargo"] == "Activo") { ?>
 

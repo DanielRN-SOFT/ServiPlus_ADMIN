@@ -25,6 +25,7 @@ $rol = $usuarios->getRol();
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 
   <link rel="preload" href="../css/adminlte.css" as="style" />
+  <link rel="shortcut icon" href="../assets/img/serviplus.avif" type="image/x-icon">
   <!--end::Accessibility Features-->
 
   <!--begin::Fonts-->
@@ -106,9 +107,9 @@ $rol = $usuarios->getRol();
         <a href="../index.php" class="brand-link">
           <!--begin::Brand Image-->
           <img
-            src="../assets/img/AdminLTELogo.png"
+            src="../assets/img/serviplus.avif"
             alt="AdminLTE Logo"
-            class="brand-image opacity-75 shadow" />
+            class="brand-image opacity-75 shadow rounded-4" />
           <!--end::Brand Image-->
           <!--begin::Brand Text-->
           <span class="brand-text fw-light">ServiPlus</span>
