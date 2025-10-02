@@ -1,4 +1,5 @@
 
+// Crear
 $(document).ready(function(){
     $("#crearCargo").on("click", function(){
         $.ajax({
@@ -50,7 +51,6 @@ $(document).ready(function(){
 
 $(document).on("click", ".btn-editar", function(){
    let IDcargo = $(this).data("id");
-   console.log(IDcargo);
    $.ajax({
     url: "./editarCargo.php",
     type: "GET",
@@ -98,7 +98,6 @@ $(document).on("click", ".btn-editar", function(){
 $(document).on("click", ".btn-eliminar", function(){
     let IDcargo = $(this).data("id");
     let nombreCargo = $(this).data("nombre");
-    console.log(IDcargo);
     Swal.fire({
         title: '<div class="text-danger"> Eliminar cargo </div>',
         html: `<div> ¿Esta seguro de realizar esta accion? <br> <strong> Nombre: </strong> ${nombreCargo} </div>`,
@@ -136,9 +135,8 @@ $(document).on("click", ".btn-eliminar", function(){
 $(document).on("click", ".btn-reintegrar", function(){
     let IDcargo = $(this).data("id");
     let nombreCargo = $(this).data("nombre");
-    console.log(IDcargo);
     Swal.fire({
-        title: '<div class="text-success"> Reintegar cargo </div>',
+        title: '<div class="text-success"> Reintegrar cargo </div>',
         html: `<div> ¿Esta seguro de realizar esta accion? <br> <strong> Nombre: </strong> ${nombreCargo} </div>`,
         showCancelButton: true,
         confirmButtonText: "Si, eliminar",

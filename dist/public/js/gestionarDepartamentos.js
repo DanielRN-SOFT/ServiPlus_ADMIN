@@ -1,4 +1,5 @@
 
+// Crear dpto
 $(document).ready(function(){
     $("#crearDepartamento").on("click", function(){
         $.ajax({
@@ -44,7 +45,7 @@ $(document).ready(function(){
     })
 })
 
-
+// Editar dpto
 $(document).on("click", ".btn-editar", function(){
    let IDdepartamento = $(this).data("id") 
    console.log(IDdepartamento);
@@ -92,11 +93,11 @@ $(document).on("click", ".btn-editar", function(){
 })
 
 
-
+// Eliminar dpto
 $(document).on("click", ".btn-eliminar-dep", function(){
     let IDdepartamento = $(this).data("id");
     let nombre = $(this).data("nombre");
-    console.log(IDdepartamento);
+    
     Swal.fire({
         title: '<p class="text-danger"> Eliminar departamento <p>',
         html: `¿Esta seguro de realizar esta accion?<br> <strong>Nombre: </strong> ${nombre}`,
@@ -130,13 +131,11 @@ $(document).on("click", ".btn-eliminar-dep", function(){
     })
 })
 
-
+// Reintegrar dpto
 $(document).on("click", ".btn-reintegrar", function(){
     let IDdepartamento = $(this).data("id");
     let nombre = $(this).data("nombre");
-    console.log(nombre)
-    console.log(IDdepartamento);
-
+    
     Swal.fire({
         title: '<p class="text-success"> Reintegrar departamento </p>',
         html: `¿Desea reintegrar este departamento? <br> <strong> Nombre:</strong> ${nombre}`,
