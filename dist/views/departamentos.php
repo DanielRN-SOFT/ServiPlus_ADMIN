@@ -59,20 +59,11 @@ $mysql->desconectar();
   <!--end::Required Plugin(AdminLTE)-->
 
   <link rel="stylesheet" href="../assets/css/styles.css">
-
-  <!-- Datatables -->
-
-  <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css" />
-  <link rel="stylesheet" href="https://cdn.datatables.net/columncontrol/1.1.0/css/columnControl.dataTables.css" />
-  <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/2.1.1/css/colReorder.dataTables.css" />
-
-  <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.5.0/css/rowReorder.dataTables.css" />
-  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.6/css/responsive.dataTables.css" />
-
   <link rel="stylesheet" href="../assets/css/styles.css">
 
   <!-- Datatables -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.bootstrap5.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.7/css/responsive.bootstrap5.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/columncontrol/1.1.0/css/columnControl.dataTables.css" />
   <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/2.1.1/css/colReorder.dataTables.css" />
   <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.5.0/css/rowReorder.dataTables.css" />
@@ -272,7 +263,7 @@ $mysql->desconectar();
                   </div>
                 </div>
                 <div class="card-body">
-                  <table class="table table-striped table-bordered display" id="tblEmpleados">
+                  <table class="table table-striped table-bordered display" id="tblInformacion">
                     <thead>
                       <tr>
                         <th>Nombre</th>
@@ -389,6 +380,7 @@ $mysql->desconectar();
   <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
   <!-- DataTables -->
   <script src="https://cdn.datatables.net/2.3.4/js/dataTables.js"></script>
+  <script src="https://cdn.datatables.net/2.3.4/js/dataTables.bootstrap5.js"></script>Zz
   <script src="https://cdn.datatables.net/columncontrol/1.1.0/js/dataTables.columnControl.js"></script>
   <script src="https://cdn.datatables.net/columncontrol/1.1.0/js/columnControl.dataTables.js"></script>
 

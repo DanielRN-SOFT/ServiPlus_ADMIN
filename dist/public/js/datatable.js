@@ -1,21 +1,18 @@
 $(document).ready(function () {
-  $("#tblEmpleados").dataTable({
-    responsive:true,
+  $("#tblInformacion").dataTable({
+    responsive: true,
     rowReorder: {
-        selector: 'td:nth-child(2)'
+      selector: "td:nth-child(2)",
+    },
+    ordering: true,
+    scrollY: 300,
+    columnControl: ["order", "reorder", "colVisDropdown"],
+    ordering: {
+      indicators: false,
+      handler: false,
     },
     autoWidth: true,
-    ordering: true,
-    scrollX: true,
-    scrollY: 300,
-    scrollCollapse: true,
-   columnControl: ['order', 'reorder', 'colVisDropdown'],
-    ordering: {
-        indicators: false,
-        handler: false
-    },  
-   fixedColumns: true,
-   fixedHeader: true,
+    scrollX: false,
     language: {
       url: "https://cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json",
     },
