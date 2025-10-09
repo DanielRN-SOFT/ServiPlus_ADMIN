@@ -1,13 +1,15 @@
 <?php
+// Validacion de Inicio sesion
 session_start();
-require_once '../model/MYSQL.php';
-$mysql = new MySQL();
-$mysql->conectar();
 
 if ($_SESSION['acceso'] == NULL || $_SESSION["acceso"] == false) {
     header("Location: ./login.php");
     exit();
 }
+
+require_once '../model/MYSQL.php';
+$mysql = new MySQL();
+$mysql->conectar();
 
 $id = intval($_GET['id']);
 $empleados = $mysql->efectuarConsulta("SELECT * FROM empleados WHERE IDempleado = '$id'");

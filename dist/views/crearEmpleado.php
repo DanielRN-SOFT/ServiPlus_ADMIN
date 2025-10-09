@@ -1,13 +1,13 @@
 <?php
-require_once "../model/MYSQL.php";
-session_start();
 
+session_start();
 if ($_SESSION['acceso'] == NULL || $_SESSION["acceso"] == false) {
     header("Location: ./login.php");
     exit();
 }
-$mysql = new MySQL();
 
+require_once "../model/MYSQL.php";
+$mysql = new MySQL();
 $mysql->conectar();
 
 $cargos = $mysql->efectuarConsulta("SELECT * FROM cargos WHERE estadoCargo = 'Activo'");

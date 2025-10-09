@@ -1,5 +1,6 @@
 <?php
 
+if($_SERVER["REQUEST_METHOD"] == "POST"){
     if (isset($_POST["numDocumento"], $_POST["password"]) && !empty($_POST["numDocumento"]) && !empty($_POST["password"])) {
         require_once "../model/MYSQL.php";
         $mysql = new MySQL();
@@ -10,9 +11,9 @@
         $hash = password_hash($passwordPlano, PASSWORD_BCRYPT);
 
         $resultado = $mysql->efectuarConsulta("SELECT nombre, IDempleado, estado, rol_id, nombre_rol, estado,password FROM empleados JOIN roles ON id_rol = rol_id where numDocumento = $numDocumento");
-       
+
         if ($usuarios = mysqli_fetch_assoc($resultado)) {
-        $estado = $usuarios["estado"];
+            $estado = $usuarios["estado"];
             if ($estado == "Activo") {
                 if (password_verify($passwordPlano, $usuarios["password"])) {
                     session_start();
@@ -30,28 +31,33 @@
                         "message" => "Inicio de sesion EXITOSAMENTE"
                     ]);
                     exit();
-                }else{
-                echo json_encode([
-                    "success" => false,
-                    "message" => "Contraseña incorrecta"
-                ]);
-                exit();
+                } else {
+                    echo json_encode([
+                        "success" => false,
+                        "message" => "Contraseña incorrecta"
+                    ]);
+                    exit();
                 }
             } else {
-            echo json_encode([
-                "success" => false,
-                "message" => "Usuario INACTIVO"
-            ]);
-            exit();
-             
+                echo json_encode([
+                    "success" => false,
+                    "message" => "Usuario INACTIVO"
+                ]);
+                exit();
             }
         } else {
+            echo json_encode([
+                "success" => false,
+                "message" => "Usuario no ENCONTRADO"
+            ]);
+            exit();
+        }
+    }else{
         echo json_encode([
             "success" => false,
-            "message" => "Usuario no ENCONTRADO"
+            "message" => "Todos los campos son obligatorios"
         ]);
-        exit();
-        }
-    } else {
-        header("Location: ../views/login.php");
+        exit();   
     }
+}
+    

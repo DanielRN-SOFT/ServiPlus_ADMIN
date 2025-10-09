@@ -1,11 +1,14 @@
 <?php
-require_once '../model/MYSQL.php';
+// Validacion de inicio de sesion
 require_once '../model/usuarios.php';
 
 session_start();
 if ($_SESSION["acceso"] == false && $_SESSION["acceso"] == null) {
   header("Location: ./login.php");
 }
+
+require_once '../model/MYSQL.php';
+
 
 $usuarios = new Usuarios();
 $usuarios = $_SESSION["usuario"];
@@ -62,7 +65,6 @@ $mysql->desconectar();
   <!--end::Required Plugin(AdminLTE)-->
 
   <link rel="stylesheet" href="../assets/css/styles.css">
-
 
   <!-- Jquery -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

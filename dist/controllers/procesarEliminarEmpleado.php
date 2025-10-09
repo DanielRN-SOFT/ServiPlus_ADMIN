@@ -1,6 +1,4 @@
 <?php
-
-
 // Verificar que se envie por POST
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 

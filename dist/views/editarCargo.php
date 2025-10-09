@@ -1,12 +1,12 @@
 <?php
 
-require_once '../model/MYSQL.php';
-
+// Validacion de inicio de sesion
 session_start();
 if ($_SESSION["acceso"] == false && $_SESSION["acceso"] == null) {
     header("Location: ./login.php");
 }
 
+require_once '../model/MYSQL.php';
 $mysql = new MySQL();
 $mysql->conectar();
 

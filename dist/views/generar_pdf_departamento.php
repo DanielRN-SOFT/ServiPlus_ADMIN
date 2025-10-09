@@ -1,16 +1,25 @@
 <?php
-require_once '../libs/fpdf/fpdf.php';
-require_once '../controllers/empleadoController.php';
+// Validacion de inicio de sesion
 session_start();
 if ($_SESSION['acceso'] == NULL || $_SESSION["acceso"] == false) {
     header("Location: ./login.php");
     exit();
 }
-if(isset($_POST["departamento"]) && !empty($_POST["departamento"])){
-    $controlador = new empleadoController();
-    $empleados = $controlador->obtenerEmpleadosPorDepartamento($_POST["departamento"]);
+// Requerir la libreria FPDF
+require_once '../libs/fpdf/fpdf.php';
+require_once '../controllers/empleadoController.php';
+
+// Validar que se seleccione un departamento
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+    if (isset($_POST["departamento"]) && !empty($_POST["departamento"])) {
+        $controlador = new empleadoController();
+        $empleados = $controlador->obtenerEmpleadosPorDepartamento($_POST["departamento"]);
+    }
 }
 
+
+
+// Instanciar la clase
 $pdf = new FPDF();
 
 $pdf->AddPage();
@@ -24,6 +33,7 @@ $pdf->Ln(5);
 $pdf->SetFont("Arial", "B", 8);
 
 
+// Encabezado
 $pdf->Cell(45, 10, 'Nombre', 1, 0);
 $pdf->Cell(20, 10, 'Documento', 1, 0);
 $pdf->Cell(30, 10, 'Cargo', 1, 0);
@@ -32,7 +42,7 @@ $pdf->Cell(20, 10, 'FechaIngreso', 1, 0);
 $pdf->Cell(25, 10, 'Salario', 1, 0);
 $pdf->Cell(15, 10, 'Estado', 1, 1);
 
-
+// Datos de los empleados
 $pdf->SetFont("Arial","" ,8);
 foreach ($empleados as $emp) {
     $pdf->Cell(45, 10, $emp["nombre"], 1);
@@ -46,14 +56,15 @@ foreach ($empleados as $emp) {
 }
 
 if ($pdf->GetY() > 250) {
-    $pdf->AddPage(); // previene 
+    $pdf->AddPage(); // previene el desbordamiento
 }
 
+// Pie de pagina
 $pdf->SetY(265);
 $pdf->SetFont('Arial', 'I', 9);
 $pdf->Cell(0, 10, utf8_decode('Elaborado por Daniel F. Ramirez. Fecha de elaboracion: ') . date('d/m/Y H:i'), 0, 0, 'C');
 
-
+// Forzar la descarga
 $pdf->Output("D", "Empleados_Por_Departamento");
 exit();
 

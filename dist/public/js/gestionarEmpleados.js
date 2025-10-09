@@ -28,7 +28,7 @@ $(document).ready(function(){
                 
 
                       // Envía los datos del formulario al backend (procesarCrearEmpleado.php)
-                      // 👇 devolvemos la promesa de $.ajax
+                      // devolvemos la promesa de $.ajax
                     return $.ajax({ 
                         url: "./controllers/procesarCrearEmpleado.php",
                         type: "POST",
@@ -87,7 +87,7 @@ $(document).on("click", ".btn-editar", function(){
                 confirmButton: "btn btn-confirmar btn-success",
                 cancelButton: "btn btn-eliminar btn-danger"
             },
-            // Ejecutar las acciones antes de
+            // Ejecutar las acciones antes de cerrar la modal
                 preConfirm: () =>{
 
                     // Capturar los datos ingresados en el FORMULARIO
@@ -150,7 +150,7 @@ $(document).on("click", ".btn-eliminarEmp", function(){
                 confirmButton: "btn btn-confirmar btn-success",
                 cancelButton: "btn btn-eliminar btn-danger"
             },
-            // Ejecutar esta accion antes de 
+            // Ejecutar esta accion antes de cerrar la modal
             preConfirm: () =>{
                 // Retornar una respuesta del controlador
                 return $.ajax({

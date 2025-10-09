@@ -1,12 +1,13 @@
 <?php
 require_once '../model/usuarios.php';
-
+// Validacion de inicio de sesion
 session_start();
-
 if ($_SESSION["acceso"] == false || $_SESSION["acceso"] == null) {
   header("Location: ./login.php");
   exit();
 }
+
+
 $usuarios = new Usuarios();
 $usuarios = $_SESSION["usuario"];
 $rol = $usuarios->getRol();

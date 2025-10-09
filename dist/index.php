@@ -1,5 +1,5 @@
 <?php
-require_once 'model/MYSQL.php';
+
 require_once 'model/usuarios.php';
 session_start();
 
@@ -8,7 +8,7 @@ if ($_SESSION['acceso'] == NULL || $_SESSION["acceso"] == false) {
   exit();
 }
 
-
+require_once 'model/MYSQL.php';
 $usuarios = new usuarios();
 $usuarios = $_SESSION['usuario'];
 $nombre = $usuarios->getNombre();

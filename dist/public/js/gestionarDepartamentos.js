@@ -13,7 +13,7 @@ $(document).ready(function(){
                     confirmButtonText: "Agregar",
                     cancelButtonText: "Cancelar",
                     customClass: {
-                        confirmButton: "btn btn-confirmar btn-success p-2",
+                        confirmButton: "btn btn-confirmar btn-success",
                         cancelButton: "btn btn-danger p-2"
                     },
                     preConfirm: () =>{
@@ -61,7 +61,7 @@ $(document).on("click", ".btn-editar", function(){
             confirmButtonText: "Guardar cambios",
             cancelButtonText: "Cancelar",
             customClass: {
-                confirmButton: "btn btn-confirmar btn-success p-2",
+                confirmButton: "btn btn-confirmar btn-success",
                 cancelButton: "btn btn-danger p-2"
             },
             preConfirm: () =>{

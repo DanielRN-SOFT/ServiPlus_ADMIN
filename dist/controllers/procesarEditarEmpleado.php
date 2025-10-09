@@ -1,7 +1,5 @@
 <?php
 
-
-
 // Verificar que se envie por metodo POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verificar que todos los campos sean rellenados

@@ -1,18 +1,26 @@
 <?php
-// Generar reporte
-require_once '../libs/fpdf/fpdf.php';
-require_once '../controllers/empleadoController.php';
+
+// Validacion de inicio de sesion
 session_start();
 if ($_SESSION['acceso'] == NULL || $_SESSION["acceso"] == false) {
     header("Location: ./login.php");
     exit();
 }
+
+// Requirir la libreria FPDF
+require_once '../libs/fpdf/fpdf.php';
+require_once '../controllers/empleadoController.php';
+
+// Asignacion de zona horaria para la hora del documento
 date_default_timezone_set('America/Bogota');
+
+// Instancia de la clase de empleado controller
 $controlador = new empleadoController();
+// Metodo para obtener todos los empleados
 $empleados = $controlador->obtenerEmpleados();
+
+// Instancia para utilizar los metodos de la clase
 $pdf = new FPDF();
-
-
 
 $pdf->AddPage();
 
@@ -26,6 +34,7 @@ $pdf->Ln(5);
 $pdf->SetFont("Arial", "B", 8);
 
 
+// Encabezado
 $pdf->Cell(60, 10, 'Nombre', 1, 0);
 $pdf->Cell(20, 10, 'Documento', 1,0);
 $pdf->Cell(25, 10, 'Cargo', 1,0);
@@ -34,7 +43,7 @@ $pdf->Cell(20, 10, 'FechaIngreso', 1, 0);
 $pdf->Cell(25, 10, 'Salario', 1, 0);
 $pdf->Cell(15, 10, 'Estado', 1, 1);
 
-
+// Datos de los empleados
 $pdf->SetFont('Arial', "", 8);
 foreach ($empleados as $emp) {
     $pdf->Cell(60,10, $emp["nombre"], 1);
@@ -48,10 +57,13 @@ foreach ($empleados as $emp) {
 }
 
 if($pdf->GetY() > 250){
-    $pdf->AddPage(); // previene 
+    $pdf->AddPage(); //  previene el desbordamiento 
 }
 
+// Pie de pagina del documento
 $pdf->SetY(265);
 $pdf->SetFont('Arial', 'I', 9);
 $pdf->Cell(0,10, utf8_decode('Elaborado por Daniel F. Ramirez. Fecha de elaboracion: ') . date('d/m/Y H:i'), 0,0, 'C');
+
+// Forzar la descarga
 $pdf->Output('D', "ReporteGeneral");
