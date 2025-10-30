@@ -6,7 +6,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $id = $_POST["id"];
         $mysql = new MySQL();
         $mysql->conectar();
-        $nombreCargo = filter_var(trim($_POST["nombreCargo"]));
+        $nombreCargo = filter_var(trim($_POST["nombreCargo"]), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $estadoCargo = filter_var(trim($_POST["estadoCargo"]), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $cargo = $mysql->efectuarConsulta("SELECT * FROM cargos where nombreCargo = '$nombreCargo' AND IDcargo != $id");
         if (mysqli_num_rows($cargo) > 0) {

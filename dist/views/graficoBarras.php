@@ -20,7 +20,7 @@ $rol = $usuarios->getRol();
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>AdminLTE | Grafico de barras</title>
+  <title>ServiPlus | Grafico de barras</title>
 
   <!--begin::Accessibility Meta Tags-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />

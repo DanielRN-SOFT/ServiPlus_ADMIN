@@ -102,7 +102,7 @@ $(document).on("click", ".btn-eliminar", function(){
         title: '<div class="text-danger"> Eliminar cargo </div>',
         html: `<div> ¿Esta seguro de realizar esta accion? <br> <strong> Nombre: </strong> ${nombreCargo} </div>`,
         showCancelButton: true,
-        confirmButtonText: "Si, eliminar",
+        confirmButtonText: "Si, eliminar cargo",
         cancelButtonText: "Cancelar",
         icon: "warning",
         customClass:{
@@ -139,7 +139,7 @@ $(document).on("click", ".btn-reintegrar", function(){
         title: '<div class="text-success"> Reintegrar cargo </div>',
         html: `<div> ¿Esta seguro de realizar esta accion? <br> <strong> Nombre: </strong> ${nombreCargo} </div>`,
         showCancelButton: true,
-        confirmButtonText: "Si, eliminar",
+        confirmButtonText: "Si, reintegrar cargo",
         cancelButtonText: "Cancelar",
         icon: "warning",
         customClass:{

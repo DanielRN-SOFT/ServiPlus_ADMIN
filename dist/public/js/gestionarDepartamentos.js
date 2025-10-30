@@ -141,7 +141,7 @@ $(document).on("click", ".btn-reintegrar", function(){
         html: `¿Desea reintegrar este departamento? <br> <strong> Nombre:</strong> ${nombre}`,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "Si, reintegar empleado",
+        confirmButtonText: "Si, reintegar departamento",
         cancelButtonText: "Cancelar",
         customClass:{
             confirmButton: "btn btn-confirmar btn-success",
