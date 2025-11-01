@@ -269,8 +269,9 @@ $mysql->desconectar();
                     <thead>
                       <tr>
                         <th>Nombre</th>
-                        <th>Estado</th>
+
                         <?php if ($rol == 1) { ?>
+                          <th>Estado</th>
                           <th>Acciones</th>
                         <?php } ?>
                       </tr>
@@ -279,9 +280,10 @@ $mysql->desconectar();
                       <tr>
                         <?php while ($fila = $departamentos->fetch_assoc()): ?>
                           <td><?php echo $fila["nombreDepartamento"] ?></td>
-                          <td><?php echo $fila["estadoDepartamento"] ?></td>
+
                           <?php
                           if ($rol == 1) { ?>
+                            <td><?php echo $fila["estadoDepartamento"] ?></td>
                             <td>
                               <button class="btn btn-primary btn-informacion mx-1 btn-editar" data-id="<?php echo $fila["IDdepartamento"] ?>"><i class="fa-solid fa-pen-to-square"></i></button>
                               <?php
@@ -382,7 +384,7 @@ $mysql->desconectar();
   <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
   <!-- DataTables -->
   <script src="https://cdn.datatables.net/2.3.4/js/dataTables.js"></script>
-  <script src="https://cdn.datatables.net/2.3.4/js/dataTables.bootstrap5.js"></script>Zz
+  <script src="https://cdn.datatables.net/2.3.4/js/dataTables.bootstrap5.js"></script>
   <script src="https://cdn.datatables.net/columncontrol/1.1.0/js/dataTables.columnControl.js"></script>
   <script src="https://cdn.datatables.net/columncontrol/1.1.0/js/columnControl.dataTables.js"></script>
 

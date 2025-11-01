@@ -288,8 +288,9 @@ $mysql->desconectar();
                     <thead>
                       <tr>
                         <th>Nombre</th>
-                        <th>Estado</th>
+
                         <?php if ($rol == 1) { ?>
+                          <th>Estado</th>
                           <th>Acciones</th>
                         <?php } ?>
                       </tr>
@@ -299,8 +300,9 @@ $mysql->desconectar();
                         <tr>
 
                           <td> <?php echo $fila["nombreCargo"] ?> </td>
-                          <td> <?php echo $fila["estadoCargo"] ?> </td>
+
                           <?php if ($rol == 1) { ?>
+                            <td> <?php echo $fila["estadoCargo"] ?> </td>
                             <td>
                               <button class="btn btn-primary btn-informacion mx-1 btn-editar" data-id="<?php echo $fila["IDcargo"] ?>"><i class="fa-solid fa-pen-to-square"></i></button>
                               <?php

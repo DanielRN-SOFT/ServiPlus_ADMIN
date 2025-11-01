@@ -282,10 +282,11 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
                               <th scope="col" class="text-dark">Cargo</th>
                               <?php if ($rol == 1) { ?>
                                 <th scope="col" class="text-dark">Rol</th>
+                                <th scope="col" class="text-dark">Estado</th>
                               <?php } ?>
                               <th scope="col" class="text-dark"> Ingreso</th>
                               <th scope="col" class="text-dark">Salario</th>
-                              <th scope="col" class="text-dark">Estado</th>
+
                               <th scope="col" class="text-dark">Telefono</th>
                               <th scope="col" class="text-dark">E-mail</th>
                               <?php if ($rol == 1) { ?>
@@ -315,6 +316,10 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
                                   <td>
                                     <?php echo $fila["nombre_rol"] ?>
                                   </td>
+
+                                  <td>
+                                    <?php echo $fila["estado"] ?>
+                                  </td>
                                 <?php } ?>
                                 <td>
                                   <?php echo $fila["fechaIngreso"] ?>
@@ -322,9 +327,7 @@ $roles = $mysql->efectuarConsulta("SELECT * FROM roles");
                                 <td>
                                   <?php echo $fila["salarioBase"] ?>
                                 </td>
-                                <td>
-                                  <?php echo $fila["estado"] ?>
-                                </td>
+
                                 <td>
                                   <?php echo $fila["telefono"] ?>
                                 </td>

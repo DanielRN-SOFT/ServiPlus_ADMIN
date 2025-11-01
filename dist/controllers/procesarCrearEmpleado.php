@@ -34,6 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $salarioBase = filter_var(trim($_POST["salarioBase"]), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
         $telefono = filter_var(trim($_POST["telefono"]), FILTER_SANITIZE_NUMBER_INT);
         $correoElectronico = filter_var(trim($_POST["correoElectronico"]), FILTER_SANITIZE_EMAIL);
+        $correoElectronico = filter_var(trim($correoElectronico), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $passwordPlano = $_POST["password"];
         $hash = password_hash($passwordPlano, PASSWORD_BCRYPT);
         $rol = filter_var(trim($_POST["rol"]), FILTER_SANITIZE_NUMBER_INT);
